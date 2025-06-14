@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -10,15 +11,22 @@ export class AppComponent implements OnInit {
   title = 'AngularBlog';
   selectedCategory = 'all';
 
-  constructor(private titleService: Title) {}
+  constructor(
+    private titleService: Title,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    // Establecer el título fijo de la aplicación
-    this.titleService.setTitle('AngularBlog');
+    this.titleService.setTitle('Dazaji Blog');
   }
 
   selectCategory(category: string) {
     this.selectedCategory = category;
     console.log('Categoría seleccionada:', category);
+  }
+
+  goToHome() {
+    this.router.navigate(['/']);
+    this.selectedCategory = 'all';
   }
 }
