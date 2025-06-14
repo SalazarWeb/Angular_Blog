@@ -1,10 +1,10 @@
 :root {
-  --primary-blue: #0F2E53;
-  --orange-accent: #FF7A45;
+  --primary-blue: #718096;
+  --orange-accent: #a0aec0;
   --white: #ffffff;
-  --light-gray: #f8f9fa;
-  --text-gray: #666666;
-  --border-gray: #e0e0e0;
+  --light-gray: #f7fafc;
+  --text-gray: #4a5568;
+  --border-gray: #e2e8f0;
 }
 
 .post-list-container {
@@ -37,7 +37,7 @@
 
 .search-input:focus {
   outline: none;
-  border-color: var(--primary-blue);
+  border-color: #718096;
 }
 
 .search-button {
@@ -71,7 +71,7 @@
 }
 
 .section-title {
-  color: var(--primary-blue);
+  color: #4a5568;
   font-size: 28px;
   font-weight: 600;
   margin-bottom: 30px;
@@ -94,7 +94,7 @@
 }
 
 .tutorial-post:hover {
-  background-color: var(--light-gray);
+  background-color: #f7fafc;
   border-radius: 8px;
   padding-left: 15px;
   padding-right: 15px;
@@ -107,13 +107,13 @@
 }
 
 .post-date-time {
-  color: var(--text-gray);
+  color: #718096;
   font-size: 14px;
   font-weight: 400;
 }
 
 .post-title {
-  color: var(--primary-blue);
+  color: #4a5568;
   font-size: 20px;
   font-weight: 700;
   margin: 8px 0;
@@ -121,7 +121,7 @@
 }
 
 .post-description {
-  color: var(--text-gray);
+  color: #718096;
   font-size: 16px;
   line-height: 1.5;
   margin: 8px 0 15px 0;
@@ -144,7 +144,7 @@
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  background-color: var(--orange-accent);
+  background-color: #a0aec0;
   margin-right: 10px;
   display: inline-block;
 }
@@ -153,11 +153,11 @@
 .empty-state {
   text-align: center;
   padding: 60px 20px;
-  color: var(--text-gray);
+  color: #718096;
 }
 
 .empty-state h3 {
-  color: var(--primary-blue);
+  color: #4a5568;
   font-size: 24px;
   margin-bottom: 15px;
 }
@@ -165,14 +165,14 @@
 .link-button {
   background: none;
   border: none;
-  color: var(--primary-blue);
+  color: #718096;
   text-decoration: underline;
   cursor: pointer;
   font-size: inherit;
 }
 
 .link-button:hover {
-  color: var(--orange-accent);
+  color: #a0aec0;
 }
 
 /* Responsive */

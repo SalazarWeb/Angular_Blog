@@ -2,7 +2,7 @@
   :host {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     font-size: 14px;
-    color: #333;
+    color: #4a5568;
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -33,7 +33,7 @@
     height: 60px;
     display: flex;
     align-items: center;
-    background-color: #1976d2;
+    background-color: #718096;
     color: white;
     font-weight: 600;
   }
@@ -89,8 +89,8 @@
   .card {
     all: unset;
     border-radius: 4px;
-    border: 1px solid #eee;
-    background-color: #fafafa;
+    border: 1px solid #e2e8f0;
+    background-color: #f7fafc;
     height: 40px;
     width: 200px;
     margin: 0 8px 16px;
@@ -118,7 +118,7 @@
 
   .card-container .card:not(.highlight-card):hover {
     transform: translateY(-3px);
-    box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 4px 17px rgba(0, 0, 0, 0.15);
   }
 
   .card-container .card:not(.highlight-card):hover .material-icons path {
@@ -126,7 +126,7 @@
   }
 
   .card.highlight-card {
-    background-color: #1976d2;
+    background-color: #718096;
     color: white;
     font-weight: 600;
     border: none;
@@ -157,12 +157,12 @@
   a,
   a:visited,
   a:hover {
-    color: #1976d2;
+    color: #718096;
     text-decoration: none;
   }
 
   a:hover {
-    color: #125699;
+    color: #4a5568;
   }
 
   .terminal {
@@ -204,18 +204,18 @@
     border-radius: 40px;
     margin: 8px;
     background-color: white;
-    border: 1px solid #eeeeee;
+    border: 1px solid #e2e8f0;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.12);
     transition: 1s ease-out;
   }
 
   .circle-link:hover {
     transform: translateY(-0.25rem);
-    box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.1);
   }
 
   footer {
@@ -265,7 +265,7 @@
 
   /* Header del blog */
   .blog-header {
-    background-color: #1976d2;
+    background-color: #a0aec0;
     color: white;
     padding: 10px 0;
   }
@@ -305,7 +305,7 @@
   }
 
   .nav-links a:hover {
-    color: #ffeb3b;
+    color: #cbd5e0;
   }
 
   /* Contenido principal */
@@ -317,24 +317,26 @@
 
   /* Footer */
   .blog-footer {
-    background-color: #f5f5f5;
+    background-color: #f7fafc;
     padding: 20px 0;
     text-align: center;
   }
 
   .footer-content {
-    color: #333;
+    color: #4a5568;
     font-size: 14px;
   }
 
   /* Nueva estructura */
   .hero-section {
-    background-image: url('https://via.placeholder.com/1920x600');
+    background-image: url('assets/images/hero-img.jpeg');
     background-size: cover;
     background-position: center;
     padding: 100px 0;
     text-align: center;
     color: white;
+    background-blend-mode: multiply;
+    background-color: rgba(113, 128, 150, 0.3);
   }
 
   .hero-title {
@@ -351,7 +353,7 @@
   .hero-divider {
     width: 60px;
     height: 4px;
-    background: linear-gradient(to right, #ff5722, #ff9800);
+    background: linear-gradient(to right, #a0aec0, #cbd5e0);
     margin: 0 auto;
   }
 
@@ -359,7 +361,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    background-color: #fff;
+    background-color: #edf2f7;
     padding: 10px 0;
     margin: 0 -20px;
   }
@@ -376,7 +378,7 @@
     padding: 10px 20px;
     margin: 5px;
     border-radius: 20px;
-    background-color: #1976d2;
+    background-color: #718096;
     color: white;
     font-weight: 500;
     cursor: pointer;
@@ -384,12 +386,12 @@
   }
 
   .category-item:hover {
-    background-color: #125699;
+    background-color: #4a5568;
     transform: translateY(-2px);
   }
 
   .category-item.active {
-    background-color: #ff9800;
+    background-color: #a0aec0;
     color: #fff;
   }
 
@@ -402,15 +404,16 @@
 
   .reading-time {
     font-size: 12px;
-    color: #666;
+    color: #718096;
   }
 
   .featured-article {
-    background-color: #fff3e0;
+    background-color: #f7fafc;
     padding: 20px;
     margin: 20px 0;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    border-left: 4px solid #a0aec0;
   }
 
   .featured-title {
@@ -420,18 +423,18 @@
 
   .featured-description {
     font-size: 16px;
-    color: #555;
+    color: #718096;
   }
 
   .orange-divider {
     width: 100%;
     height: 4px;
-    background-color: #ff5722;
+    background-color: #a0aec0;
     margin: 10px 0;
   }
 
   .promotional-section {
-    background-color: #1976d2;
+    background-color: #718096;
     color: white;
     padding: 40px 20px;
     text-align: center;
@@ -470,19 +473,19 @@
 
   .footer-date {
     font-size: 12px;
-    color: #999;
+    color: #a0aec0;
     margin: 0 0 5px;
   }
 
   .footer-number {
     font-size: 24px;
     font-weight: 700;
-    color: #1976d2;
+    color: #718096;
   }
 
   .footer-mission {
     font-size: 14px;
-    color: #333;
+    color: #4a5568;
   }
 
   .footer-links-section {
@@ -502,39 +505,40 @@
   }
 
   .links-group a {
-    color: #1976d2;
+    color: #718096;
     text-decoration: none;
     font-size: 13px;
     transition: color 0.3s;
   }
 
   .links-group a:hover {
-    color: #ff9800;
+    color: #a0aec0;
   }
 
   .email-input {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid #e2e8f0;
     border-radius: 4px;
     font-size: 14px;
+    background-color: #f7fafc;
   }
 
   .footer-bottom {
     margin-top: 20px;
     padding-top: 10px;
-    border-top: 1px solid #ddd;
+    border-top: 1px solid #e2e8f0;
   }
 
   .footer-date-bottom {
     font-size: 12px;
-    color: #999;
+    color: #a0aec0;
     margin: 0 0 5px;
   }
 
   .footer-copyright {
     font-size: 14px;
-    color: #333;
+    color: #4a5568;
     margin: 0;
   }
 
@@ -663,7 +667,6 @@
         <p class="blog-description">News, are share travel tips... adventure</p>
       </div>
       
-      <!-- Navbar con categorías -->
       <nav class="categories-nav">
         <div class="categories-table">
           <button class="category-item active" (click)="selectCategory('all')">All</button>
@@ -698,14 +701,6 @@
     </div>
   </main>
 
-  <!-- Sección promocional -->
-  <section class="promotional-section">
-    <div class="container">
-      <h3 class="promo-title">Explore more to get your comfort zone</h3>
-      <p class="promo-subtitle">Blocks your perfect stay with us.</p>
-    </div>
-  </section>
-
   <!-- Footer -->
   <footer class="blog-footer">
     <div class="container">
@@ -725,14 +720,14 @@
           <div class="footer-links-section">
             <div class="links-group">
               <h5>About</h5>
+              <a href="#">Who we are?</a>
               <a href="#">About 4%</a>
-              <a href="#">Foq</a>
-              <a href="#">Cancer</a>
+              <a href="#">Our team</a>
             </div>
             
             <div class="links-group">
               <h5>Decent</h5>
-              <a href="#">Contact Us</a>
+              <a href="#">Contact us</a>
               <a href="#">Race</a>
               <a href="#">FAQ</a>
             </div>
@@ -752,12 +747,3 @@
     </div>
   </footer>
 </div>
-
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content above * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * End of Placeholder * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-

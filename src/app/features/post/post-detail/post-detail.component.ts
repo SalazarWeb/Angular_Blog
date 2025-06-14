@@ -57,8 +57,7 @@ export class PostDetailComponent implements OnInit {
   ngOnInit(): void {}
 
   private updateMetaTags(post: Post): void {
-    // Actualizar título de la página
-    this.titleService.setTitle(`${post.title} | Mi Blog`);
+    this.titleService.setTitle('AngularBlog');
     
     // Actualizar meta tags
     this.meta.updateTag({ name: 'description', content: post.summary });

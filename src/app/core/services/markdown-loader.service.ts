@@ -52,17 +52,31 @@ export class MarkdownLoaderService {
     return [
       {
         id: 'introduccion',
-        title: 'Introducción al Blog',
-        date: '2024-01-01',
-        summary: 'Bienvenidos a mi blog técnico',
+        title: 'Bienvenido al Mundo del Desarrollo Web Moderno',
+        date: '2025-06-15',
+        summary: 'Una introducción apasionante al universo del desarrollo web y las tecnologías que están transformando la manera en que construimos aplicaciones',
         fileName: 'introduccion.md'
       },
       {
         id: 'angular-tips',
-        title: 'Tips de Angular',
-        date: '2024-01-15',
-        summary: 'Consejos útiles para desarrollar con Angular',
+        title: '5 Tips Esenciales para Dominar Angular como un Pro',
+        date: '2025-06-14',
+        summary: 'Descubre los secretos que todo desarrollador Angular debería conocer para escribir código más limpio, eficiente y mantenible',
         fileName: 'angular-tips.md'
+      },
+      {
+        id: 'mi-primer-hackathon',
+        title: 'Mi Primer Hackathon: 48 Horas que Cambiaron mi Carrera',
+        date: '2025-06-13',
+        summary: 'La historia de cómo un fin de semana de programación intensiva me enseñó más sobre desarrollo y colaboración que meses de estudio solitario',
+        fileName: 'mi-primer-hackathon.md'
+      },
+      {
+        id: 'css-grid-vs-flexbox',
+        title: 'CSS Grid vs Flexbox: La Batalla Definitiva (Spoiler: Ambos Ganan)',
+        date: '2025-06-12',
+        summary: 'Descubre cuándo usar cada herramienta de layout y por qué la combinación de ambas es el superpoder que todo frontend developer necesita',
+        fileName: 'css-grid-vs-flexbox.md'
       }
     ];
   }
