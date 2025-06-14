@@ -26,6 +26,8 @@ export class PostDetailComponent implements OnInit {
       switchMap(params => {
         const postId = params['id'];
         if (!postId) {
+          this.error = true;
+          this.loading = false;
           this.router.navigate(['/']);
           return of(null);
         }
@@ -57,21 +59,37 @@ export class PostDetailComponent implements OnInit {
   ngOnInit(): void {}
 
   private updateMetaTags(post: Post): void {
-    this.titleService.setTitle('AngularBlog');
+    const pageTitle = `${post.title} - AngularBlog`;
+    this.titleService.setTitle(pageTitle);
     
     // Actualizar meta tags
     this.meta.updateTag({ name: 'description', content: post.summary });
     this.meta.updateTag({ name: 'author', content: post.author || 'Anónimo' });
+    this.meta.updateTag({ name: 'keywords', content: post.tags?.join(', ') || '' });
     
     // Open Graph tags para redes sociales
     this.meta.updateTag({ property: 'og:title', content: post.title });
     this.meta.updateTag({ property: 'og:description', content: post.summary });
     this.meta.updateTag({ property: 'og:type', content: 'article' });
+    this.meta.updateTag({ property: 'og:url', content: window.location.href });
     
     // Twitter Card tags
     this.meta.updateTag({ name: 'twitter:card', content: 'summary' });
     this.meta.updateTag({ name: 'twitter:title', content: post.title });
     this.meta.updateTag({ name: 'twitter:description', content: post.summary });
+    
+    // Article specific meta tags
+    if (post.date) {
+      this.meta.updateTag({ property: 'article:published_time', content: post.date });
+    }
+    if (post.author) {
+      this.meta.updateTag({ property: 'article:author', content: post.author });
+    }
+    if (post.tags) {
+      post.tags.forEach(tag => {
+        this.meta.updateTag({ property: 'article:tag', content: tag });
+      });
+    }
   }
 
   goBack(): void {
@@ -80,5 +98,15 @@ export class PostDetailComponent implements OnInit {
 
   onTagClick(tag: string): void {
     this.router.navigate(['/'], { queryParams: { tag } });
+  }
+
+  getReadingTime(post: Post): number {
+    if (!post?.content) return 5;
+    
+    const wordsPerMinute = 200;
+    const wordCount = post.content.split(/\s+/).length;
+    const readingTime = Math.ceil(wordCount / wordsPerMinute);
+    
+    return readingTime > 0 ? readingTime : 1;
   }
 }
