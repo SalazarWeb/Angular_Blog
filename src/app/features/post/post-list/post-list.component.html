@@ -20,44 +20,74 @@
     </div>
   </div>
 
-  <!-- Lista de posts -->
-  <div class="posts-grid">
-    <article 
-      *ngFor="let post of posts$ | async" 
-      class="post-card"
-      [routerLink]="['/post', post.id]">
-      
-      <header class="post-header">
-        <h2 class="post-title">{{ post.title }}</h2>
-        <time class="post-date">{{ post.date | date:'mediumDate' }}</time>
-      </header>
-      
-      <div class="post-summary">
-        <p>{{ post.summary }}</p>
-      </div>
-      
-      <footer class="post-footer" *ngIf="post.tags && post.tags.length > 0">
-        <div class="tags">
-          <span 
-            *ngFor="let tag of post.tags" 
-            class="tag"
-            (click)="onTagClick(tag); $event.stopPropagation()">
-            #{{ tag }}
-          </span>
+  <!-- Sección de tutoriales completos -->
+  <div class="tutorials-section">
+    <h3 class="section-title">Complete tutorials</h3>
+    
+    <div class="posts-list">
+      <article 
+        *ngFor="let post of posts$ | async" 
+        class="tutorial-post"
+        [routerLink]="['/post', post.id]">
+        
+        <div class="post-meta">
+          <time class="post-date-time">{{ post.date | date:'dd MMM yyyy' }} - {{ getReadingTime(post) }} mins read</time>
         </div>
-      </footer>
-      
-      <div class="read-more">
-        Leer más →
-      </div>
-    </article>
-  </div>
+        
+        <h4 class="post-title">{{ post.title }}</h4>
+        
+        <p class="post-description">{{ post.summary }}</p>
+        
+        <div class="post-divider"></div>
+      </article>
+    </div>
 
-  <!-- Estado vacío -->
-  <div class="empty-state" *ngIf="(posts$ | async)?.length === 0">
-    <h3>No se encontraron posts</h3>
-    <p>Intenta con otros términos de búsqueda o 
-      <button (click)="clearSearch()" class="link-button">ver todos los posts</button>
-    </p>
+    <!-- Posts específicos mencionados en la imagen -->
+    <div class="featured-posts">
+      <article class="tutorial-post">
+        <div class="post-meta">
+          <time class="post-date-time">24 Jan 2024 - 10 mins read</time>
+        </div>
+        <h4 class="post-title">Savoring Mosaic Resin Gastronomic Designs</h4>
+        <p class="post-description">Exploring the intersection of art and culinary experiences...</p>
+        <div class="post-divider"></div>
+      </article>
+
+      <article class="tutorial-post">
+        <div class="post-meta">
+          <time class="post-date-time">22 Jan 2024 - 8 mins read</time>
+        </div>
+        <h4 class="post-title">Navigating the Traveler's Lifestyle</h4>
+        <p class="post-description">Tips and insights for the modern nomadic lifestyle...</p>
+        <div class="post-divider"></div>
+      </article>
+
+      <article class="tutorial-post">
+        <div class="post-meta">
+          <time class="post-date-time">20 Jan 2024 - 12 mins read</time>
+        </div>
+        <h4 class="post-title">Joanna Through Time</h4>
+        <p class="post-description">A journey through historical perspectives...</p>
+        <div class="post-divider"></div>
+      </article>
+
+      <article class="tutorial-post special-post">
+        <div class="post-meta">
+          <div class="author-avatar"></div>
+          <time class="post-date-time">18 Jan 2024 - 6 mins read</time>
+        </div>
+        <h4 class="post-title">Kevin's Shadows</h4>
+        <p class="post-description">An artistic exploration of light and shadow...</p>
+        <div class="post-divider"></div>
+      </article>
+    </div>
+
+    <!-- Estado vacío -->
+    <div class="empty-state" *ngIf="(posts$ | async)?.length === 0">
+      <h3>No se encontraron posts</h3>
+      <p>Intenta con otros términos de búsqueda o 
+        <button (click)="clearSearch()" class="link-button">ver todos los posts</button>
+      </p>
+    </div>
   </div>
 </div>

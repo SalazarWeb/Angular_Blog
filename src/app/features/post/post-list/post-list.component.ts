@@ -41,4 +41,15 @@ export class PostListComponent implements OnInit {
     this.searchTerm = '';
     this.loadPosts();
   }
+
+  getReadingTime(post: Post): number {
+    // Cálculo estimado del tiempo de lectura basado en el contenido
+    if (!post.content) return 5; // Valor por defecto
+    
+    const wordsPerMinute = 200;
+    const wordCount = post.content.split(' ').length;
+    const readingTime = Math.ceil(wordCount / wordsPerMinute);
+    
+    return readingTime > 0 ? readingTime : 1;
+  }
 }

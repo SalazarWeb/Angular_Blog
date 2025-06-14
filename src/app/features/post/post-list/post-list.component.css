@@ -1,195 +1,223 @@
+:root {
+  --primary-blue: #0F2E53;
+  --orange-accent: #FF7A45;
+  --white: #ffffff;
+  --light-gray: #f8f9fa;
+  --text-gray: #666666;
+  --border-gray: #e0e0e0;
+}
+
 .post-list-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 0 20px;
 }
 
 .search-container {
-  margin-bottom: 2rem;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
 }
 
 .search-input-wrapper {
-  display: flex;
-  max-width: 500px;
-  margin: 0 auto;
   position: relative;
+  width: 100%;
+  max-width: 500px;
 }
 
 .search-input {
-  flex: 1;
-  padding: 12px 16px;
-  border: 2px solid #e1e5e9;
-  border-radius: 8px 0 0 8px;
+  width: 100%;
+  padding: 15px 50px 15px 20px;
+  border: 2px solid var(--border-gray);
+  border-radius: 25px;
   font-size: 16px;
-  outline: none;
-  transition: border-color 0.2s ease;
+  background-color: var(--white);
+  transition: border-color 0.3s ease;
 }
 
 .search-input:focus {
-  border-color: #0366d6;
+  outline: none;
+  border-color: var(--primary-blue);
 }
 
 .search-button {
-  padding: 12px 16px;
-  background-color: #0366d6;
-  color: white;
+  position: absolute;
+  right: 45px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
   border: none;
-  border-radius: 0;
+  font-size: 18px;
   cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.search-button:hover {
-  background-color: #0256cc;
+  color: var(--text-gray);
 }
 
 .clear-button {
-  padding: 12px 16px;
-  background-color: #6c757d;
-  color: white;
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
   border: none;
-  border-radius: 0 8px 8px 0;
+  font-size: 18px;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  color: var(--text-gray);
+  font-weight: bold;
 }
 
-.clear-button:hover {
-  background-color: #5a6268;
+/* Sección de tutoriales */
+.tutorials-section {
+  margin-top: 40px;
 }
 
-.posts-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 2rem;
-  margin-bottom: 2rem;
+.section-title {
+  color: var(--primary-blue);
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 30px;
+  text-align: left;
 }
 
-.post-card {
-  background: white;
-  border: 1px solid #e1e5e9;
-  border-radius: 12px;
-  padding: 1.5rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  text-decoration: none;
-  color: inherit;
+.posts-list, .featured-posts {
   display: flex;
   flex-direction: column;
-  min-height: 200px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  gap: 0;
 }
 
-.post-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-  border-color: #0366d6;
+.tutorial-post {
+  padding: 25px 0;
+  border-bottom: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  text-decoration: none;
+  color: inherit;
 }
 
-.post-header {
-  margin-bottom: 1rem;
+.tutorial-post:hover {
+  background-color: var(--light-gray);
+  border-radius: 8px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.post-meta {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.post-date-time {
+  color: var(--text-gray);
+  font-size: 14px;
+  font-weight: 400;
 }
 
 .post-title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin: 0 0 0.5rem 0;
-  color: #24292e;
+  color: var(--primary-blue);
+  font-size: 20px;
+  font-weight: 700;
+  margin: 8px 0;
   line-height: 1.3;
 }
 
-.post-date {
-  font-size: 0.875rem;
-  color: #586069;
-  font-weight: 500;
-}
-
-.post-summary {
-  flex: 1;
-  margin-bottom: 1rem;
-}
-
-.post-summary p {
-  margin: 0;
-  color: #586069;
+.post-description {
+  color: var(--text-gray);
+  font-size: 16px;
   line-height: 1.5;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  margin: 8px 0 15px 0;
 }
 
-.post-footer {
-  margin-bottom: 1rem;
+.post-divider {
+  width: 100%;
+  height: 1px;
+  background-color: var(--border-gray);
+  margin-top: 20px;
+  opacity: 0.5;
 }
 
-.tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+/* Post especial con avatar */
+.special-post .post-meta {
+  position: relative;
 }
 
-.tag {
-  background-color: #f1f3f4;
-  color: #0366d6;
-  padding: 0.25rem 0.5rem;
-  border-radius: 12px;
-  font-size: 0.75rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
+.author-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: var(--orange-accent);
+  margin-right: 10px;
+  display: inline-block;
 }
 
-.tag:hover {
-  background-color: #0366d6;
-  color: white;
-}
-
-.read-more {
-  color: #0366d6;
-  font-weight: 500;
-  font-size: 0.875rem;
-  margin-top: auto;
-}
-
+/* Estado vacío */
 .empty-state {
   text-align: center;
-  padding: 4rem 2rem;
-  color: #586069;
+  padding: 60px 20px;
+  color: var(--text-gray);
 }
 
 .empty-state h3 {
-  margin: 0 0 1rem 0;
-  color: #24292e;
-}
-
-.empty-state p {
-  margin: 0;
+  color: var(--primary-blue);
+  font-size: 24px;
+  margin-bottom: 15px;
 }
 
 .link-button {
   background: none;
   border: none;
-  color: #0366d6;
-  cursor: pointer;
+  color: var(--primary-blue);
   text-decoration: underline;
-  font: inherit;
+  cursor: pointer;
+  font-size: inherit;
 }
 
 .link-button:hover {
-  color: #0256cc;
+  color: var(--orange-accent);
 }
 
+/* Responsive */
 @media (max-width: 768px) {
   .post-list-container {
-    padding: 1rem;
+    padding: 0 15px;
   }
   
-  .posts-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
+  .section-title {
+    font-size: 24px;
+    text-align: center;
   }
   
-  .search-input-wrapper {
-    max-width: 100%;
+  .tutorial-post {
+    padding: 20px 0;
+  }
+  
+  .post-title {
+    font-size: 18px;
+  }
+  
+  .post-description {
+    font-size: 14px;
+  }
+  
+  .search-input {
+    padding: 12px 45px 12px 15px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-title {
+    font-size: 20px;
+  }
+  
+  .post-title {
+    font-size: 16px;
+  }
+  
+  .post-description {
+    font-size: 13px;
+  }
+  
+  .post-date-time {
+    font-size: 12px;
   }
 }

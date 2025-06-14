@@ -1,12 +1,3 @@
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * Delete the template below * * * * * * * * * * -->
-<!-- * * * * * * * to get started with your project! * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-
 <style>
   :host {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -336,6 +327,217 @@
     font-size: 14px;
   }
 
+  /* Nueva estructura */
+  .hero-section {
+    background-image: url('https://via.placeholder.com/1920x600');
+    background-size: cover;
+    background-position: center;
+    padding: 100px 0;
+    text-align: center;
+    color: white;
+  }
+
+  .hero-title {
+    font-size: 48px;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  .hero-subtitle {
+    font-size: 24px;
+    margin: 10px 0 20px;
+  }
+
+  .hero-divider {
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(to right, #ff5722, #ff9800);
+    margin: 0 auto;
+  }
+
+  .categories-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: #fff;
+    padding: 10px 0;
+    margin: 0 -20px;
+  }
+
+  .categories-table {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .category-item {
+    all: unset;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 20px;
+    background-color: #1976d2;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+  }
+
+  .category-item:hover {
+    background-color: #125699;
+    transform: translateY(-2px);
+  }
+
+  .category-item.active {
+    background-color: #ff9800;
+    color: #fff;
+  }
+
+  .reading-times {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 20px;
+  }
+
+  .reading-time {
+    font-size: 12px;
+    color: #666;
+  }
+
+  .featured-article {
+    background-color: #fff3e0;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .featured-title {
+    font-size: 24px;
+    margin: 0 0 10px;
+  }
+
+  .featured-description {
+    font-size: 16px;
+    color: #555;
+  }
+
+  .orange-divider {
+    width: 100%;
+    height: 4px;
+    background-color: #ff5722;
+    margin: 10px 0;
+  }
+
+  .promotional-section {
+    background-color: #1976d2;
+    color: white;
+    padding: 40px 20px;
+    text-align: center;
+  }
+
+  .promo-title {
+    font-size: 24px;
+    margin: 0 0 10px;
+  }
+
+  .promo-subtitle {
+    font-size: 16px;
+    margin: 0;
+  }
+
+  .footer-columns {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .footer-column {
+    flex: 1;
+    min-width: 220px;
+    margin: 10px;
+  }
+
+  .footer-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 0 10px;
+  }
+
+  .footer-date {
+    font-size: 12px;
+    color: #999;
+    margin: 0 0 5px;
+  }
+
+  .footer-number {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1976d2;
+  }
+
+  .footer-mission {
+    font-size: 14px;
+    color: #333;
+  }
+
+  .footer-links-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .links-group {
+    margin: 10px 0;
+  }
+
+  .links-group h5 {
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0 0 5px;
+  }
+
+  .links-group a {
+    color: #1976d2;
+    text-decoration: none;
+    font-size: 13px;
+    transition: color 0.3s;
+  }
+
+  .links-group a:hover {
+    color: #ff9800;
+  }
+
+  .email-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+
+  .footer-bottom {
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px solid #ddd;
+  }
+
+  .footer-date-bottom {
+    font-size: 12px;
+    color: #999;
+    margin: 0 0 5px;
+  }
+
+  .footer-copyright {
+    font-size: 14px;
+    color: #333;
+    margin: 0;
+  }
+
   /* Responsive Styles */
   @media screen and (max-width: 767px) {
     .card-container > *:not(.circle-link) ,
@@ -356,6 +558,26 @@
       right: 120px;
       transform: rotate(-5deg);
     }
+
+    .categories-nav {
+      flex-direction: column;
+    }
+
+    .category-item {
+      margin: 10px 0;
+      width: 100%;
+      text-align: center;
+    }
+
+    .reading-times {
+      flex-direction: row;
+      justify-content: center;
+      margin-top: 10px;
+    }
+
+    .reading-time {
+      margin: 0 10px;
+    }
   }
 
   @media screen and (max-width: 575px) {
@@ -363,35 +585,170 @@
       display: none;
       visibility: hidden;
     }
+
+    .hero-title {
+      font-size: 36px;
+    }
+
+    .hero-subtitle {
+      font-size: 18px;
+    }
+
+    .category-item {
+      padding: 8px 16px;
+      font-size: 14px;
+    }
+
+    .reading-time {
+      font-size: 10px;
+    }
+
+    .featured-title {
+      font-size: 20px;
+    }
+
+    .featured-description {
+      font-size: 14px;
+    }
+
+    .promo-title {
+      font-size: 20px;
+    }
+
+    .promo-subtitle {
+      font-size: 14px;
+    }
+
+    .footer-title {
+      font-size: 14px;
+    }
+
+    .footer-date {
+      font-size: 10px;
+    }
+
+    .footer-number {
+      font-size: 20px;
+    }
+
+    .email-input {
+      font-size: 12px;
+    }
+
+    .footer-date-bottom {
+      font-size: 10px;
+    }
+
+    .footer-copyright {
+      font-size: 12px;
+    }
   }
 </style>
 
 <div class="app-container">
+  <!-- Hero Section con título principal -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <h1 class="hero-title">EXPLORING THE WONDERS OF HIKING</h1>
+      <p class="hero-subtitle">An iconic search site... passion</p>
+      <div class="hero-divider"></div>
+    </div>
+  </section>
+
   <!-- Header del blog -->
   <header class="blog-header">
-    <nav class="navbar">
-      <div class="nav-content">
-        <a routerLink="/" class="logo">
-          <h1>Mi Blog</h1>
-        </a>
-        <div class="nav-links">
-          <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
-            Inicio
-          </a>
-        </div>
+    <div class="container">
+      <div class="blog-title-section">
+        <h2 class="blog-title">Blog</h2>
+        <p class="blog-description">News, are share travel tips... adventure</p>
       </div>
-    </nav>
+      
+      <!-- Navbar con categorías -->
+      <nav class="categories-nav">
+        <div class="categories-table">
+          <button class="category-item active" (click)="selectCategory('all')">All</button>
+          <button class="category-item" (click)="selectCategory('destination')">Destination</button>
+          <button class="category-item" (click)="selectCategory('gallery')">Gallery</button>
+          <button class="category-item" (click)="selectCategory('literiple')">Literiple</button>
+          <button class="category-item" (click)="selectCategory('tips')">Tips & Nests</button>
+          <button class="category-item" (click)="selectCategory('sort')">Sort key</button>
+          <button class="category-item" (click)="selectCategory('remark')">Remark</button>
+        </div>
+        <div class="reading-times">
+          <span class="reading-time">30 Jan 2024 - 10 mins read</span>
+          <span class="reading-time">29 Jan 2024 - 6 mins read</span>
+        </div>
+      </nav>
+    </div>
   </header>
+
+  <!-- Artículo destacado -->
+  <section class="featured-article">
+    <div class="container">
+      <h3 class="featured-title">Unveiling the Secrets Beyond the Tourist Traits</h3>
+      <p class="featured-description">In the life that builds... culture</p>
+      <div class="orange-divider"></div>
+    </div>
+  </section>
 
   <!-- Contenido principal -->
   <main class="main-content">
-    <router-outlet></router-outlet>
+    <div class="container">
+      <router-outlet></router-outlet>
+    </div>
   </main>
+
+  <!-- Sección promocional -->
+  <section class="promotional-section">
+    <div class="container">
+      <h3 class="promo-title">Explore more to get your comfort zone</h3>
+      <p class="promo-subtitle">Blocks your perfect stay with us.</p>
+    </div>
+  </section>
 
   <!-- Footer -->
   <footer class="blog-footer">
-    <div class="footer-content">
-      <p>&copy; 2024 Mi Blog. Creado con Angular y ❤️</p>
+    <div class="container">
+      <div class="footer-columns">
+        <div class="footer-column">
+          <h4 class="footer-title">Building News</h4>
+          <p class="footer-date">24 Feb Apr 2023</p>
+          <div class="footer-number">78</div>
+        </div>
+        
+        <div class="footer-column">
+          <h4 class="footer-title">Hairstone</h4>
+          <p class="footer-mission">Our mission is... available</p>
+        </div>
+        
+        <div class="footer-column">
+          <div class="footer-links-section">
+            <div class="links-group">
+              <h5>About</h5>
+              <a href="#">About 4%</a>
+              <a href="#">Foq</a>
+              <a href="#">Cancer</a>
+            </div>
+            
+            <div class="links-group">
+              <h5>Decent</h5>
+              <a href="#">Contact Us</a>
+              <a href="#">Race</a>
+              <a href="#">FAQ</a>
+            </div>
+            
+            <div class="links-group">
+              <h5>Call Updates</h5>
+              <input type="email" placeholder="Enter your email" class="email-input">
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p class="footer-date-bottom">25/06/2023</p>
+        <p class="footer-copyright">©2023 Hardhouse. All rights reserved.</p>
+      </div>
     </div>
   </footer>
 </div>
