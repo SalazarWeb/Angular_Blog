@@ -2,7 +2,8 @@
   max-width: 100%;
   line-height: 1.6;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  color: var(--gris-azulado-profundo);
+  color: var(--negro);
+  background-color: var(--blanco);
 }
 
 .markdown-content ::ng-deep h1,
@@ -14,27 +15,19 @@
   margin-top: 2rem;
   margin-bottom: 1rem;
   font-weight: 600;
+  color: var(--negro);
+  transition: color 0.3s ease;
+}
+
+.markdown-content ::ng-deep h1:hover,
+.markdown-content ::ng-deep h2:hover,
+.markdown-content ::ng-deep h3:hover {
   color: var(--azul-noche-suave);
-}
-
-.markdown-content ::ng-deep h1 {
-  font-size: 2.25rem;
-  border-bottom: 1px solid var(--gris-perla-suave);
-  padding-bottom: 0.5rem;
-}
-
-.markdown-content ::ng-deep h2 {
-  font-size: 1.875rem;
-  border-bottom: 1px solid var(--gris-perla-suave);
-  padding-bottom: 0.3rem;
-}
-
-.markdown-content ::ng-deep h3 {
-  font-size: 1.5rem;
 }
 
 .markdown-content ::ng-deep p {
   margin-bottom: 1rem;
+  color: var(--negro);
 }
 
 .markdown-content ::ng-deep code {
@@ -43,11 +36,11 @@
   font-size: 85%;
   margin: 0;
   padding: 0.2em 0.4em;
-  color: var(--azul-noche-suave);
+  color: var(--negro);
 }
 
 .markdown-content ::ng-deep pre {
-  background-color: var(--azul-cielo-claro);
+  background-color: var(--blanco);
   border-radius: 6px;
   font-size: 85%;
   line-height: 1.45;
@@ -66,16 +59,21 @@
   overflow: visible;
   padding: 0;
   word-wrap: normal;
-  color: var(--azul-noche-suave);
+  color: var(--negro);
 }
 
 .markdown-content ::ng-deep blockquote {
   border-left: 4px solid var(--verde-agua-tranquilo);
   margin: 0;
   padding: 0 16px;
-  color: var(--gris-azulado-profundo);
-  background-color: var(--blanco-nube);
+  color: var(--negro);
+  background-color: var(--blanco);
   border-radius: 0 6px 6px 0;
+  transition: background-color 0.3s ease;
+}
+
+.markdown-content ::ng-deep blockquote:hover {
+  background-color: var(--gris-perla-suave);
 }
 
 .markdown-content ::ng-deep ul,
@@ -86,7 +84,7 @@
 
 .markdown-content ::ng-deep li {
   margin-bottom: 0.25rem;
-  color: var(--gris-azulado-profundo);
+  color: var(--negro);
 }
 
 .markdown-content ::ng-deep table {
@@ -106,33 +104,33 @@
 }
 
 .markdown-content ::ng-deep table th {
-  background-color: var(--azul-cielo-claro);
+  background-color: var(--gris-perla-suave);
   font-weight: 600;
-  color: var(--azul-noche-suave);
+  color: var(--negro);
 }
 
 .markdown-content ::ng-deep table td {
-  background-color: var(--blanco-nube);
-  color: var(--gris-azulado-profundo);
+  background-color: var(--blanco);
+  color: var(--negro);
 }
 
 .markdown-content ::ng-deep a {
-  color: var(--verde-agua-tranquilo);
-  text-decoration: none;
+  color: var(--negro);
+  text-decoration: underline;
   transition: color 0.2s ease;
 }
 
 .markdown-content ::ng-deep a:hover {
-  color: var(--azul-cielo-primario);
-  text-decoration: underline;
+  color: var(--verde-agua-tranquilo);
+  text-decoration: none;
 }
 
 .markdown-content ::ng-deep strong {
-  color: var(--azul-noche-suave);
+  color: var(--negro);
   font-weight: 600;
 }
 
 .markdown-content ::ng-deep em {
-  color: var(--lavanda-sutil);
+  color: var(--negro);
   font-style: italic;
 }
