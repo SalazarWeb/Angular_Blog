@@ -6,7 +6,7 @@
         type="text" 
         [(ngModel)]="searchTerm" 
         (keyup.enter)="onSearch()"
-        placeholder="Buscar posts..."
+        placeholder="Buscar publicaciones..."
         class="search-input">
       <button (click)="onSearch()" class="search-button">
         🔍
@@ -27,7 +27,7 @@
       [routerLink]="['/post', post.id]">
       
       <div class="post-meta">
-        <time class="post-date-time">{{ post.date | date:'dd MMM yyyy' }}</time>
+        <time class="post-date-time">{{ post.date | date:'dd MM yyyy' }}</time>
       </div>
       
       <h4 class="post-title">{{ post.title }}</h4>

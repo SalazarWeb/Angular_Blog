@@ -2,13 +2,13 @@
   <!-- Estado de carga -->
   <div *ngIf="loading" class="loading-state">
     <div class="spinner"></div>
-    <p>Cargando post...</p>
+    <p>Cargando publicación...</p>
   </div>
 
   <!-- Estado de error -->
   <div *ngIf="error && !loading" class="error-state">
-    <h2>😕 Post no encontrado</h2>
-    <p>El post que buscas no existe o no se pudo cargar.</p>
+    <h2>😕 Publicación no encontrada</h2>
+    <p>La publicación que buscas no existe o no se pudo cargar.</p>
     <button (click)="goBack()" class="back-button">
       ← Volver al inicio
     </button>
@@ -53,7 +53,7 @@
     <footer class="post-footer">
       <div class="post-actions">
         <button (click)="goBack()" class="back-button">
-          ← Volver a todos los posts
+          ← Volver a todas las publicaciones
         </button>
       </div>
     </footer>
