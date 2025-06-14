@@ -2,7 +2,7 @@
   max-width: 100%;
   line-height: 1.6;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  color: #4a5568;
+  color: var(--gris-azulado-profundo);
 }
 
 .markdown-content ::ng-deep h1,
@@ -14,18 +14,18 @@
   margin-top: 2rem;
   margin-bottom: 1rem;
   font-weight: 600;
-  color: #4a5568;
+  color: var(--azul-noche-suave);
 }
 
 .markdown-content ::ng-deep h1 {
   font-size: 2.25rem;
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid var(--gris-perla-suave);
   padding-bottom: 0.5rem;
 }
 
 .markdown-content ::ng-deep h2 {
   font-size: 1.875rem;
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid var(--gris-perla-suave);
   padding-bottom: 0.3rem;
 }
 
@@ -38,21 +38,22 @@
 }
 
 .markdown-content ::ng-deep code {
-  background-color: #f7fafc;
+  background-color: var(--gris-perla-suave);
   border-radius: 3px;
   font-size: 85%;
   margin: 0;
   padding: 0.2em 0.4em;
-  color: #718096;
+  color: var(--azul-noche-suave);
 }
 
 .markdown-content ::ng-deep pre {
-  background-color: #f7fafc;
+  background-color: var(--azul-cielo-claro);
   border-radius: 6px;
   font-size: 85%;
   line-height: 1.45;
   overflow: auto;
   padding: 16px;
+  border: 1px solid var(--gris-perla-suave);
 }
 
 .markdown-content ::ng-deep pre code {
@@ -65,13 +66,16 @@
   overflow: visible;
   padding: 0;
   word-wrap: normal;
+  color: var(--azul-noche-suave);
 }
 
 .markdown-content ::ng-deep blockquote {
-  border-left: 4px solid #a0aec0;
+  border-left: 4px solid var(--verde-agua-tranquilo);
   margin: 0;
   padding: 0 16px;
-  color: #718096;
+  color: var(--gris-azulado-profundo);
+  background-color: var(--blanco-nube);
+  border-radius: 0 6px 6px 0;
 }
 
 .markdown-content ::ng-deep ul,
@@ -82,6 +86,7 @@
 
 .markdown-content ::ng-deep li {
   margin-bottom: 0.25rem;
+  color: var(--gris-azulado-profundo);
 }
 
 .markdown-content ::ng-deep table {
@@ -96,12 +101,38 @@
 
 .markdown-content ::ng-deep table th,
 .markdown-content ::ng-deep table td {
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--gris-perla-suave);
   padding: 6px 13px;
 }
 
 .markdown-content ::ng-deep table th {
-  background-color: #f7fafc;
+  background-color: var(--azul-cielo-claro);
   font-weight: 600;
-  color: #4a5568;
+  color: var(--azul-noche-suave);
+}
+
+.markdown-content ::ng-deep table td {
+  background-color: var(--blanco-nube);
+  color: var(--gris-azulado-profundo);
+}
+
+.markdown-content ::ng-deep a {
+  color: var(--verde-agua-tranquilo);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.markdown-content ::ng-deep a:hover {
+  color: var(--azul-cielo-primario);
+  text-decoration: underline;
+}
+
+.markdown-content ::ng-deep strong {
+  color: var(--azul-noche-suave);
+  font-weight: 600;
+}
+
+.markdown-content ::ng-deep em {
+  color: var(--lavanda-sutil);
+  font-style: italic;
 }
