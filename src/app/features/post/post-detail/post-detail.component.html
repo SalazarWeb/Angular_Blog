@@ -1,0 +1,61 @@
+<div class="post-detail-container">
+  <!-- Estado de carga -->
+  <div *ngIf="loading" class="loading-state">
+    <div class="spinner"></div>
+    <p>Cargando post...</p>
+  </div>
+
+  <!-- Estado de error -->
+  <div *ngIf="error && !loading" class="error-state">
+    <h2>😕 Post no encontrado</h2>
+    <p>El post que buscas no existe o no se pudo cargar.</p>
+    <button (click)="goBack()" class="back-button">
+      ← Volver al inicio
+    </button>
+  </div>
+
+  <!-- Contenido del post -->
+  <article *ngIf="post$ | async as post" class="post-article">
+    <!-- Header del post -->
+    <header class="post-header">
+      <button (click)="goBack()" class="back-button-small">
+        ← Volver
+      </button>
+      
+      <h1 class="post-title">{{ post.title }}</h1>
+      
+      <div class="post-meta">
+        <time class="post-date">{{ post.date | date:'fullDate' }}</time>
+        <span class="post-author" *ngIf="post.author">
+          por {{ post.author }}
+        </span>
+      </div>
+
+      <!-- Tags -->
+      <div class="post-tags" *ngIf="post.tags && post.tags.length > 0">
+        <span 
+          *ngFor="let tag of post.tags" 
+          class="tag"
+          (click)="onTagClick(tag)">
+          #{{ tag }}
+        </span>
+      </div>
+    </header>
+
+    <!-- Contenido del post -->
+    <div class="post-content">
+      <app-markdown-renderer 
+        [content]="post.content || ''">
+      </app-markdown-renderer>
+    </div>
+
+    <!-- Footer del post -->
+    <footer class="post-footer">
+      <div class="post-actions">
+        <button (click)="goBack()" class="back-button">
+          ← Volver a todos los posts
+        </button>
+      </div>
+    </footer>
+  </article>
+</div>

@@ -1,0 +1,63 @@
+<div class="post-list-container">
+  <!-- Barra de búsqueda -->
+  <div class="search-container">
+    <div class="search-input-wrapper">
+      <input 
+        type="text" 
+        [(ngModel)]="searchTerm" 
+        (keyup.enter)="onSearch()"
+        placeholder="Buscar posts..."
+        class="search-input">
+      <button (click)="onSearch()" class="search-button">
+        🔍
+      </button>
+      <button 
+        *ngIf="searchTerm" 
+        (click)="clearSearch()" 
+        class="clear-button">
+        ✕
+      </button>
+    </div>
+  </div>
+
+  <!-- Lista de posts -->
+  <div class="posts-grid">
+    <article 
+      *ngFor="let post of posts$ | async" 
+      class="post-card"
+      [routerLink]="['/post', post.id]">
+      
+      <header class="post-header">
+        <h2 class="post-title">{{ post.title }}</h2>
+        <time class="post-date">{{ post.date | date:'mediumDate' }}</time>
+      </header>
+      
+      <div class="post-summary">
+        <p>{{ post.summary }}</p>
+      </div>
+      
+      <footer class="post-footer" *ngIf="post.tags && post.tags.length > 0">
+        <div class="tags">
+          <span 
+            *ngFor="let tag of post.tags" 
+            class="tag"
+            (click)="onTagClick(tag); $event.stopPropagation()">
+            #{{ tag }}
+          </span>
+        </div>
+      </footer>
+      
+      <div class="read-more">
+        Leer más →
+      </div>
+    </article>
+  </div>
+
+  <!-- Estado vacío -->
+  <div class="empty-state" *ngIf="(posts$ | async)?.length === 0">
+    <h3>No se encontraron posts</h3>
+    <p>Intenta con otros términos de búsqueda o 
+      <button (click)="clearSearch()" class="link-button">ver todos los posts</button>
+    </p>
+  </div>
+</div>
