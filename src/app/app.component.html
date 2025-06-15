@@ -6,6 +6,8 @@
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    display: block;
+    min-height: 100vh;
   }
 
   h1,
@@ -262,16 +264,73 @@
     width: 1920px;
   }
 
-  /* Header del blog */
+  /* Nueva estructura con proporciones específicas */
+  .app-container {
+    display: block;
+    min-height: 100vh;
+  }
+
+  /* Imagen inicial - 40% de la altura */
+  .image-section {
+    background-image: url('assets/images/hero-img.jpeg');
+    background-size: cover;
+    background-position: center;
+    height: 40vh;
+    min-height: 320px;
+    position: relative;
+    background-blend-mode: multiply;
+    background-color: rgba(58, 80, 107, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  /* Contenido superpuesto en la imagen */
+  .image-content {
+    position: relative;
+    z-index: 1;
+    color: white;
+    padding: 20px;
+  }
+
+  .image-title {
+    font-size: 48px;
+    font-weight: 700;
+    margin: 0;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  .image-subtitle {
+    font-size: 24px;
+    margin: 10px 0 20px;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  }
+
+  .image-divider {
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(to right, #88C9A1, #E8D2AE);
+    margin: 0 auto;
+  }
+
   .blog-header {
     background-color: #3A506B;
     color: white;
-    padding: 10px 0;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px 0;
+    position: relative;
   }
 
   .blog-title-section {
     text-align: left;
     margin-bottom: 20px;
+    padding: 0 20px;
   }
 
   .blog-title {
@@ -298,103 +357,27 @@
     font-weight: 400;
   }
 
-  .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  /* Contenido principal - 25% restante */
+  .main-content {
+    min-height: 25vh;
+    padding: 20px;
+    background-color: #FFFFFF;
+    color: #000000;
+  }
+
+  .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
-  }
-
-  .nav-content {
-    display: flex;
-    align-items: center;
-  }
-
-  .logo {
-    font-size: 24px;
-    font-weight: 600;
-    text-decoration: none;
-    color: white;
-  }
-
-  .nav-links {
-    display: flex;
-    align-items: center;
-    margin-left: 40px;
-  }
-
-  .nav-links a {
-    color: white;
-    text-decoration: none;
-    margin: 0 15px;
-    transition: color 0.3s;
-  }
-
-  .nav-links a:hover {
-    color: #A0D8F0;
-  }
-
-  /* Contenido principal */
-  .main-content {
-    padding: 20px;
-    max-width: 800px;
-    margin: 0 auto;
-    background-color: #FFFFFF;
-    color: #000000;
-  }
-
-  /* Footer */
-  .blog-footer {
-    background-color: #FFFFFF;
-    padding: 20px 0;
-    text-align: center;
-    border-top: 1px solid #E6F0F4;
-  }
-
-  .footer-content {
-    color: #000000;
-    font-size: 14px;
-  }
-
-  /* Nueva estructura */
-  .hero-section {
-    background-image: url('assets/images/hero-img.jpeg');
-    background-size: cover;
-    background-position: center;
-    padding: 100px 0;
-    text-align: center;
-    color: white;
-    background-blend-mode: multiply;
-    background-color: rgba(58, 80, 107, 0.7);
-  }
-
-  .hero-title {
-    font-size: 48px;
-    font-weight: 700;
-    margin: 0;
-  }
-
-  .hero-subtitle {
-    font-size: 24px;
-    margin: 10px 0 20px;
-  }
-
-  .hero-divider {
-    width: 60px;
-    height: 4px;
-    background: linear-gradient(to right, #88C9A1, #E8D2AE);
-    margin: 0 auto;
+    height: 100%;
   }
 
   .categories-nav {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    background-color: #FFFFFF;
-    padding: 10px 0;
-    margin: 0 -20px;
+    background-color: transparent;
+    padding: 10px 20px;
+    margin: 0;
   }
 
   .categories-table {
@@ -487,6 +470,16 @@
   .promo-subtitle {
     font-size: 16px;
     margin: 0;
+  }
+
+  /* Footer - posicionado de manera absoluta o fuera del viewport principal */
+  .blog-footer {
+    background-color: #FFFFFF;
+    padding: 20px 0;
+    text-align: center;
+    border-top: 1px solid #E6F0F4;
+    position: relative;
+    margin-top: auto;
   }
 
   .footer-columns {
@@ -584,8 +577,132 @@
     margin: 0;
   }
 
+  /* Menú dropdown simple para categorías móvil */
+  .mobile-category-dropdown {
+    display: none;
+    position: relative;
+  }
+
+  .category-dropdown-button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: white;
+    color: #3A506B;
+    border: 2px solid #E6F0F4;
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+    transition: all 0.3s ease;
+  }
+
+  .category-dropdown-button:hover {
+    border-color: #88C9A1;
+    background-color: #f8f9fa;
+  }
+
+  .category-dropdown-arrow {
+    margin-left: 10px;
+    transition: transform 0.3s ease;
+    font-size: 12px;
+  }
+
+  .category-dropdown-arrow.open {
+    transform: rotate(180deg);
+  }
+
+  .category-dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: white;
+    border: 2px solid #E6F0F4;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+  }
+
+  .category-dropdown-menu.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .dropdown-category-item {
+    display: block;
+    width: 100%;
+    padding: 12px 16px;
+    background: none;
+    border: none;
+    color: #000000;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 14px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .dropdown-category-item:last-child {
+    border-bottom: none;
+  }
+
+  .dropdown-category-item:hover {
+    background-color: #88C9A1;
+    color: white;
+  }
+
+  .dropdown-category-item.active {
+    background-color: #87CEEB;
+    color: white;
+  }
+
   /* Responsive Styles */
   @media screen and (max-width: 767px) {
+    /* Mantener proporciones en móvil */
+    .image-section {
+      height: 40vh;
+      min-height: 250px;
+    }
+
+    .image-title {
+      font-size: 32px;
+    }
+
+    .image-subtitle {
+      font-size: 18px;
+    }
+
+    .blog-header {
+      min-height: 150px;
+    }
+
+    /* Mantener proporciones en móvil pero permitir que el contenido crezca */
+    .hero-section {
+      height: 40vh;
+      min-height: 300px;
+    }
+
+    .blog-header {
+      height: 25vh;
+      min-height: 150px;
+    }
+
+    .main-content {
+      min-height: 25vh;
+    }
+
     .card-container > *:not(.circle-link) ,
     .terminal {
       width: 100%;
@@ -605,14 +722,15 @@
       transform: rotate(-5deg);
     }
 
+    /* Ocultar navegación desktop y mostrar dropdown móvil */
     .categories-nav {
-      flex-direction: column;
+      display: none;
     }
 
-    .category-item {
-      margin: 10px 0;
-      width: 100%;
-      text-align: center;
+    .mobile-category-dropdown {
+      display: flex;
+      justify-content: center;
+      padding: 15px 20px;
     }
 
     .reading-times {
@@ -627,22 +745,35 @@
   }
 
   @media screen and (max-width: 575px) {
-    svg#rocket-smoke {
-      display: none;
-      visibility: hidden;
+    .image-section {
+      height: 40vh;
+      min-height: 200px;
     }
 
-    .hero-title {
-      font-size: 36px;
+    .image-title {
+      font-size: 28px;
     }
 
-    .hero-subtitle {
-      font-size: 18px;
+    .image-subtitle {
+      font-size: 16px;
     }
 
-    .category-item {
-      padding: 8px 16px;
-      font-size: 14px;
+    .hero-section {
+      height: 40vh;
+      min-height: 250px;
+    }
+
+    .blog-header {
+      height: 25vh;
+      min-height: 120px;
+    }
+
+    .main-content {
+      min-height: 25vh;
+    }
+
+    .blog-title {
+      font-size: 24px;
     }
 
     .reading-time {
@@ -692,16 +823,16 @@
 </style>
 
 <div class="app-container">
-  <!-- Hero Section con título principal -->
-  <section class="hero-section">
-    <div class="hero-content">
-      <h1 class="hero-title">DESARROLLO WEB MODERNO</h1>
-      <p class="hero-subtitle">Explorando las últimas tecnologías y mejores prácticas</p>
-      <div class="hero-divider"></div>
+  <!-- Imagen inicial - 40% altura -->
+  <section class="image-section">
+    <div class="image-content">
+      <h1 class="image-title">DESARROLLO WEB MODERNO</h1>
+      <p class="image-subtitle">Explorando las últimas tecnologías y mejores prácticas</p>
+      <div class="image-divider"></div>
     </div>
   </section>
 
-  <!-- Header del blog -->
+  <!-- Header del blog - directamente después de la imagen -->
   <header class="blog-header">
     <div class="container">
       <div class="blog-title-section">
@@ -709,6 +840,7 @@
         <p class="blog-description">Artículos sobre programación, desarrollo web y tecnología</p>
       </div>
       
+      <!-- Navegación desktop -->
       <nav class="categories-nav">
         <div class="categories-table">
           <button 
@@ -729,40 +861,48 @@
             (click)="selectCategory('desarrollo-web')">Desarrollo Web</button>
         </div>
       </nav>
+
+      <!-- Dropdown móvil simple -->
+      <div class="mobile-category-dropdown">
+        <button class="category-dropdown-button" (click)="toggleCategoryDropdown()">
+          <span>{{ getCategoryDisplayName(selectedCategory) }}</span>
+          <span class="category-dropdown-arrow" [class.open]="isCategoryDropdownOpen">▼</span>
+        </button>
+        
+        <div class="category-dropdown-menu" [class.open]="isCategoryDropdownOpen">
+          <button 
+            class="dropdown-category-item" 
+            [class.active]="selectedCategory === 'todos'"
+            (click)="selectCategory('todos')">
+            Todos
+          </button>
+          <button 
+            class="dropdown-category-item" 
+            [class.active]="selectedCategory === 'tecnologia'"
+            (click)="selectCategory('tecnologia')">
+            Tecnología
+          </button>
+          <button 
+            class="dropdown-category-item" 
+            [class.active]="selectedCategory === 'experiencias'"
+            (click)="selectCategory('experiencias')">
+            Experiencias
+          </button>
+          <button 
+            class="dropdown-category-item" 
+            [class.active]="selectedCategory === 'desarrollo-web'"
+            (click)="selectCategory('desarrollo-web')">
+            Desarrollo Web
+          </button>
+        </div>
+      </div>
     </div>
   </header>
 
+  <!-- Contenido principal -->
   <main class="main-content">
     <div class="container">
       <router-outlet></router-outlet>
     </div>
   </main>
-
-  <!-- Footer -->
-  <footer class="blog-footer">
-    <div class="container">
-      <div class="footer-columns">
-
-        <div class="footer-column">
-          <div class="footer-links-section">
-            <div class="links-group">
-              <a href="#">¿Quiénes somos?</a>
-              <a href="#">Nuestro equipo</a>
-            </div>
-            
-            <div class="links-group">
-              <a href="#">Contáctanos</a>
-              <a href="#">Preguntas frecuentes</a>
-            </div>
-            
-          </div>
-        </div>
-      </div>
-      
-      <div class="footer-bottom">
-        <p class="footer-date-bottom">14-06-2025</p>
-        <p class="footer-copyright">©2025 Todos los derechos reservados.</p>
-      </div>
-    </div>
-  </footer>
 </div>

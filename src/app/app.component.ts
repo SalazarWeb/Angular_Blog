@@ -11,6 +11,7 @@ import { FilterService } from './core/services/filter.service';
 export class AppComponent implements OnInit {
   title = 'AngularBlog';
   selectedCategory = 'todos';
+  isCategoryDropdownOpen = false;
 
   constructor(
     private titleService: Title,
@@ -27,10 +28,29 @@ export class AppComponent implements OnInit {
     });
   }
 
+  toggleCategoryDropdown() {
+    this.isCategoryDropdownOpen = !this.isCategoryDropdownOpen;
+  }
+
+  closeCategoryDropdown() {
+    this.isCategoryDropdownOpen = false;
+  }
+
   selectCategory(category: string) {
     this.selectedCategory = category;
     this.filterService.setSelectedCategory(category);
+    this.closeCategoryDropdown(); // Cerrar dropdown al seleccionar categoría
     console.log('Categoría seleccionada:', category);
+  }
+
+  getCategoryDisplayName(category: string): string {
+    const categoryNames: { [key: string]: string } = {
+      'todos': 'Todos',
+      'tecnologia': 'Tecnología',
+      'experiencias': 'Experiencias',
+      'desarrollo-web': 'Desarrollo Web'
+    };
+    return categoryNames[category] || 'Todos';
   }
 
   goToHome() {

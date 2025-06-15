@@ -1,9 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map, catchError, of, forkJoin, switchMap } from 'rxjs';
 import { Post, PostMetadata } from '../interfaces/post.interface';
 
-// Declaramos front-matter como any para evitar problemas de tipado
 declare const require: any;
 
 interface PostIndex {
@@ -17,15 +16,12 @@ interface PostIndex {
 export class MarkdownLoaderService {
   private frontMatter: any;
   private postsCache: Post[] | null = null;
+  private http = inject(HttpClient);
 
-  constructor(private http: HttpClient) {
-    // Carga dinámica de front-matter
+  constructor() {
     this.frontMatter = require('front-matter');
   }
 
-  /**
-   * Obtiene el contenido crudo de un archivo markdown
-   */
   getPostContent(fileName: string): Observable<string> {
     return this.http.get(`/assets/markdown/${fileName}`, {
       responseType: 'text'
@@ -37,9 +33,6 @@ export class MarkdownLoaderService {
     );
   }
 
-  /**
-   * Obtiene un post completo con metadatos y contenido
-   */
   getPost(fileName: string): Observable<Post> {
     return this.getPostContent(fileName).pipe(
       map(content => {
@@ -66,7 +59,7 @@ export class MarkdownLoaderService {
           };
         } catch (error) {
           console.error(`Error parseando front-matter en ${fileName}:`, error);
-          // Retornar post básico sin metadatos en caso de error
+          
           return {
             id: fileName.replace('.md', ''),
             fileName,
@@ -101,11 +94,7 @@ export class MarkdownLoaderService {
     );
   }
 
-  /**
-   * Carga dinámicamente todos los posts desde el índice JSON
-   */
   getAllPostsMetadata(): Observable<Post[]> {
-    // Si ya tenemos los posts en caché, los devolvemos
     if (this.postsCache) {
       return of(this.postsCache);
     }
@@ -167,51 +156,48 @@ export class MarkdownLoaderService {
           )
         );
 
-        // Ejecutar todas las peticiones en paralelo
         return forkJoin(postMetadataRequests);
       }),
       map(posts => {
-        // Guardar en caché
         this.postsCache = posts;
         return posts;
       }),
       catchError(error => {
         console.error('Error cargando índice de posts:', error);
-        // Fallback a lista estática si falla
         const fallbackPosts = [
           {
             id: 'post-de-prueba',
             title: 'Del Síndrome del Impostor a Mentor: Mi Transformación en 2 Años',
             date: '2025-06-16',
-            summary: 'Cómo pasé de sentir que no merecía estar en tech a ayudar a otros desarrolladores a encontrar su camino en la industria',
+            summary: 'Cómo pasé de sentir que no merecía estar en tech a ayudar a otros desarrolladores a encontrar su camino en la industria.',
             fileName: 'post-de-prueba.md'
           },
           {
             id: 'introduccion',
             title: 'Bienvenido al Mundo del Desarrollo Web Moderno',
             date: '2025-06-15',
-            summary: 'Una introducción apasionante al universo del desarrollo web y las tecnologías que están transformando la manera en que construimos aplicaciones',
+            summary: 'Una introducción apasionante al universo del desarrollo web y las tecnologías que están transformando la manera en que construimos aplicaciones.',
             fileName: 'introduccion.md'
           },
           {
             id: 'angular-tips',
             title: '5 Tips Esenciales para Dominar Angular como un Pro',
             date: '2025-06-14',
-            summary: 'Descubre los secretos que todo desarrollador Angular debería conocer para escribir código más limpio, eficiente y mantenible',
+            summary: 'Descubre los secretos que todo desarrollador Angular debería conocer para escribir código más limpio, eficiente y mantenible.',
             fileName: 'angular-tips.md'
           },
           {
             id: 'mi-primer-hackathon',
             title: 'Mi Primer Hackathon: 48 Horas que Cambiaron mi Carrera',
             date: '2025-06-13',
-            summary: 'La historia de cómo un fin de semana de programación intensiva me enseñó más sobre desarrollo y colaboración que meses de estudio solitario',
+            summary: 'La historia de cómo un fin de semana de programación intensiva me enseñó más sobre desarrollo y colaboración que meses de estudio solitario.',
             fileName: 'mi-primer-hackathon.md'
           },
           {
             id: 'css-grid-vs-flexbox',
             title: 'CSS Grid vs Flexbox: La Batalla Definitiva (Spoiler: Ambos Ganan)',
             date: '2025-06-12',
-            summary: 'Descubre cuándo usar cada herramienta de layout y por qué la combinación de ambas es el superpoder que todo frontend developer necesita',
+            summary: 'Descubre cuándo usar cada herramienta de layout y por qué la combinación de ambas es el superpoder que todo frontend developer necesita.',
             fileName: 'css-grid-vs-flexbox.md'
           }
         ];
