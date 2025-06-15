@@ -12,7 +12,7 @@ export class PostService {
 
   getAllPosts(): Observable<Post[]> {
     return this.markdownLoader.getAllPostsMetadata().pipe(
-      map(posts => posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())),
+      map((posts: Post[]) => posts.sort((a: Post, b: Post) => new Date(b.date).getTime() - new Date(a.date).getTime())),
       catchError(error => {
         console.error('Error obteniendo metadatos de posts:', error);
         return of([]);
@@ -25,8 +25,8 @@ export class PostService {
    */
   getPostById(id: string): Observable<Post | null> {
     return this.markdownLoader.getAllPostsMetadata().pipe(
-      switchMap(posts => {
-        const post = posts.find(p => p.id === id);
+      switchMap((posts: Post[]) => {
+        const post = posts.find((p: Post) => p.id === id);
         
         if (!post) {
           return of(null);
@@ -51,7 +51,7 @@ export class PostService {
    */
   exists(id: string): Observable<boolean> {
     return this.markdownLoader.getAllPostsMetadata().pipe(
-      map(posts => posts.some(p => p.id === id)),
+      map((posts: Post[]) => posts.some((p: Post) => p.id === id)),
       catchError(error => {
         console.error(`Error verificando existencia del post ${id}:`, error);
         return of(false);
@@ -63,21 +63,14 @@ export class PostService {
    * Busca posts por término
    */
   searchPosts(searchTerm: string): Observable<Post[]> {
-    if (!searchTerm || searchTerm.trim() === '') {
-      return this.getAllPosts();
-    }
-
     return this.getAllPosts().pipe(
-      map(posts => posts.filter(post => {
+      map((posts: Post[]) => {
         const term = searchTerm.toLowerCase();
-        return post.title.toLowerCase().includes(term) ||
-               post.summary.toLowerCase().includes(term) ||
-               (post.tags && post.tags.some(tag => tag.toLowerCase().includes(term))) ||
-               (post.author && post.author.toLowerCase().includes(term));
-      })),
-      catchError(error => {
-        console.error('Error buscando posts:', error);
-        return of([]);
+        return posts.filter((post: Post) => 
+          post.title.toLowerCase().includes(term) ||
+          post.summary.toLowerCase().includes(term) ||
+          (post.tags && post.tags.some((tag: string) => tag.toLowerCase().includes(term)))
+        );
       })
     );
   }
@@ -86,18 +79,10 @@ export class PostService {
    * Obtiene posts por tag
    */
   getPostsByTag(tag: string): Observable<Post[]> {
-    if (!tag || tag.trim() === '') {
-      return this.getAllPosts();
-    }
-
     return this.getAllPosts().pipe(
-      map(posts => posts.filter(post => 
-        post.tags && post.tags.includes(tag)
-      )),
-      catchError(error => {
-        console.error(`Error obteniendo posts por tag ${tag}:`, error);
-        return of([]);
-      })
+      map((posts: Post[]) => posts.filter((post: Post) => 
+        post.tags && post.tags.includes(tag.toLowerCase())
+      ))
     );
   }
 
@@ -105,18 +90,14 @@ export class PostService {
    * Obtiene posts por categoría
    */
   getPostsByCategory(category: string): Observable<Post[]> {
-    if (!category || category.trim() === '' || category === 'todos') {
+    if (category === 'todos') {
       return this.getAllPosts();
     }
-
+    
     return this.getAllPosts().pipe(
-      map(posts => posts.filter(post => 
-        post.category && post.category.toLowerCase() === category.toLowerCase()
-      )),
-      catchError(error => {
-        console.error(`Error obteniendo posts por categoría ${category}:`, error);
-        return of([]);
-      })
+      map((posts: Post[]) => posts.filter((post: Post) => 
+        post.category === category
+      ))
     );
   }
 }

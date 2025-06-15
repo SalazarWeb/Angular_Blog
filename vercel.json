@@ -11,6 +11,20 @@
   ],
   "routes": [
     {
+      "src": "/assets/posts-index.json",
+      "headers": {
+        "content-type": "application/json",
+        "cache-control": "public, max-age=300"
+      }
+    },
+    {
+      "src": "/assets/markdown/(.*\\.md)",
+      "headers": {
+        "content-type": "text/plain; charset=utf-8",
+        "cache-control": "public, max-age=300"
+      }
+    },
+    {
       "src": "/(.*\\.(js|css|ico|png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot))",
       "headers": {
         "cache-control": "public, max-age=31536000, immutable"
