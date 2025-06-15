@@ -7,6 +7,9 @@ export interface Post {
   content?: string;
   tags?: string[];
   author?: string;
+  category?: string;
+  subcategory?: string;
+  coverImage?: string;
 }
 
 export interface PostMetadata {
@@ -15,4 +18,7 @@ export interface PostMetadata {
   summary: string;
   tags?: string[];
   author?: string;
+  category?: string;
+  subcategory?: string;
+  coverImage?: string;
 }

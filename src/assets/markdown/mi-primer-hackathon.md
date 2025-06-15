@@ -9,12 +9,12 @@ tags:
   - desarrollo personal
   - innovación
   - trabajo en equipo
-coverImage: "/assets/covers/hackathon-night.jpg"
+coverImage: "https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=800&h=400&fit=crop"
 summary: "La historia de cómo un fin de semana de programación intensiva me enseñó más sobre desarrollo y colaboración que meses de estudio solitario"
 ---
 
 ## Introducción Emocional
-![Equipo de desarrolladores trabajando toda la noche con pizzas y energy drinks](/assets/images/hackathon-team.jpg)
+![Equipo de desarrolladores trabajando intensamente en laptops durante un hackathon](https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&h=400&fit=crop)
 *3 AM, día 2 del hackathon - cuando el café se convierte en combustible vital - Foto propia*
 
 Hoy quiero compartir esa experiencia que cambió completamente mi perspectiva sobre lo que significa ser desarrollador. Era mi primer hackathon y llegué con más nervios que confianza, sin imaginar que esas 48 horas de caos creativo se convertirían en uno de los momentos más transformadores de mi carrera.

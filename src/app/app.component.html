@@ -711,16 +711,27 @@
       
       <nav class="categories-nav">
         <div class="categories-table">
-          <button class="category-item active" (click)="selectCategory('todos')">Todos</button>
-          <button class="category-item" (click)="selectCategory('tecnologia')">Tecnología</button>
-          <button class="category-item" (click)="selectCategory('experiencias')">Experiencias</button>
-          <button class="category-item" (click)="selectCategory('desarrollo-web')">Desarrollo Web</button>
+          <button 
+            class="category-item" 
+            [class.active]="selectedCategory === 'todos'"
+            (click)="selectCategory('todos')">Todos</button>
+          <button 
+            class="category-item" 
+            [class.active]="selectedCategory === 'tecnologia'"
+            (click)="selectCategory('tecnologia')">Tecnología</button>
+          <button 
+            class="category-item" 
+            [class.active]="selectedCategory === 'experiencias'"
+            (click)="selectCategory('experiencias')">Experiencias</button>
+          <button 
+            class="category-item" 
+            [class.active]="selectedCategory === 'desarrollo-web'"
+            (click)="selectCategory('desarrollo-web')">Desarrollo Web</button>
         </div>
       </nav>
     </div>
   </header>
 
-  <!-- Contenido principal -->
   <main class="main-content">
     <div class="container">
       <router-outlet></router-outlet>
@@ -749,7 +760,7 @@
       </div>
       
       <div class="footer-bottom">
-        <p class="footer-date-bottom">14/06/2025</p>
+        <p class="footer-date-bottom">14-06-2025</p>
         <p class="footer-copyright">©2025 Todos los derechos reservados.</p>
       </div>
     </div>

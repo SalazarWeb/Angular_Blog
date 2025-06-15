@@ -1,7 +1,7 @@
 ---
 title: "5 Tips Esenciales para Dominar Angular como un Pro"
 date: 2025-06-14
-category: "tecnología"
+category: "tecnologia"
 subcategory: "frameworks frontend"
 tags: 
   - angular
@@ -9,12 +9,12 @@ tags:
   - desarrollo frontend
   - tips avanzados
   - productividad
-coverImage: "/assets/covers/angular-mastery.jpg"
+coverImage: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=800&h=400&fit=crop"
 summary: "Descubre los secretos que todo desarrollador Angular debería conocer para escribir código más limpio, eficiente y mantenible"
 ---
 
 ## Introducción Emocional
-![Desarrollador trabajando con Angular en múltiples pantallas](/assets/images/angular-workspace.jpg)
+![Código Angular en pantalla con logo de Angular visible](https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=800&h=400&fit=crop)
 *La satisfacción de ver tu aplicación Angular funcionando perfectamente - Foto propia*
 
 Hoy quiero compartir esa experiencia que transformó mi manera de trabajar con Angular. Después de años luchando con componentes complejos y código espagueti, descubrí estos patrones que no solo mejoraron mi productividad, sino que hicieron que programar fuera genuinamente divertido otra vez.

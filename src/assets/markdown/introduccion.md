@@ -1,19 +1,19 @@
 ---
 title: "Bienvenido al Mundo del Desarrollo Web Moderno"
 date: 2025-06-15
-category: "tecnología"
+category: "desarrollo-web"
 subcategory: "desarrollo web"
 tags: 
   - programación
   - web development
   - tecnología
   - principiantes
-coverImage: "/assets/covers/desarrollo-web.jpg"
+coverImage: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=400&fit=crop"
 summary: "Una introducción apasionante al universo del desarrollo web y las tecnologías que están transformando la manera en que construimos aplicaciones"
 ---
 
 ## Introducción Emocional
-![Pantalla de código en un monitor moderno](/assets/images/coding-setup.jpg)
+![Desarrollador trabajando en código con múltiples monitores](https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?w=800&h=400&fit=crop)
 *El momento mágico cuando tu primera línea de código cobra vida - Foto propia*
 
 Hoy quiero compartir esa experiencia que cambió mi perspectiva sobre la programación web. Recuerdo vívidamente la primera vez que escribí una línea de código y vi cómo cobraba vida en el navegador. Ese momento de conexión entre lógica y creatividad me marcó para siempre, y es lo que me impulsa cada día a seguir explorando este fascinante mundo del desarrollo web.

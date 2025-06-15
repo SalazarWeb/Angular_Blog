@@ -1,16 +1,22 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map, catchError, of } from 'rxjs';
+import { Observable, map, catchError, of, forkJoin, switchMap } from 'rxjs';
 import { Post, PostMetadata } from '../interfaces/post.interface';
 
 // Declaramos front-matter como any para evitar problemas de tipado
 declare const require: any;
+
+interface PostIndex {
+  id: string;
+  fileName: string;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class MarkdownLoaderService {
   private frontMatter: any;
+  private postsCache: Post[] | null = null;
 
   constructor(private http: HttpClient) {
     // Carga dinámica de front-matter
@@ -53,7 +59,10 @@ export class MarkdownLoaderService {
             date: metadata.date || new Date().toISOString(),
             summary: metadata.summary || '',
             tags: metadata.tags || [],
-            author: metadata.author || 'Anónimo'
+            author: metadata.author || 'Anónimo',
+            category: metadata.category || '',
+            subcategory: metadata.subcategory || '',
+            coverImage: metadata.coverImage || ''
           };
         } catch (error) {
           console.error(`Error parseando front-matter en ${fileName}:`, error);
@@ -66,7 +75,10 @@ export class MarkdownLoaderService {
             date: new Date().toISOString(),
             summary: 'Contenido sin metadatos disponibles',
             tags: [],
-            author: 'Anónimo'
+            author: 'Anónimo',
+            category: '',
+            subcategory: '',
+            coverImage: ''
           };
         }
       }),
@@ -80,47 +92,139 @@ export class MarkdownLoaderService {
           date: new Date().toISOString(),
           summary: 'No se pudo cargar el post',
           tags: [],
-          author: 'Sistema'
+          author: 'Sistema',
+          category: '',
+          subcategory: '',
+          coverImage: ''
         } as Post);
       })
     );
   }
 
   /**
-   * Lista todos los posts disponibles (requiere configuración manual)
+   * Carga dinámicamente todos los posts desde el índice JSON
    */
-  getAllPostsMetadata(): Post[] {
-    // Por ahora retornamos una lista estática
-    // En producción, esto podría venir de un archivo JSON o API
-    return [
-      {
-        id: 'introduccion',
-        title: 'Bienvenido al Mundo del Desarrollo Web Moderno',
-        date: '2025-06-15',
-        summary: 'Una introducción apasionante al universo del desarrollo web y las tecnologías que están transformando la manera en que construimos aplicaciones',
-        fileName: 'introduccion.md'
-      },
-      {
-        id: 'angular-tips',
-        title: '5 Tips Esenciales para Dominar Angular como un Pro',
-        date: '2025-06-14',
-        summary: 'Descubre los secretos que todo desarrollador Angular debería conocer para escribir código más limpio, eficiente y mantenible',
-        fileName: 'angular-tips.md'
-      },
-      {
-        id: 'mi-primer-hackathon',
-        title: 'Mi Primer Hackathon: 48 Horas que Cambiaron mi Carrera',
-        date: '2025-06-13',
-        summary: 'La historia de cómo un fin de semana de programación intensiva me enseñó más sobre desarrollo y colaboración que meses de estudio solitario',
-        fileName: 'mi-primer-hackathon.md'
-      },
-      {
-        id: 'css-grid-vs-flexbox',
-        title: 'CSS Grid vs Flexbox: La Batalla Definitiva (Spoiler: Ambos Ganan)',
-        date: '2025-06-12',
-        summary: 'Descubre cuándo usar cada herramienta de layout y por qué la combinación de ambas es el superpoder que todo frontend developer necesita',
-        fileName: 'css-grid-vs-flexbox.md'
-      }
-    ];
+  getAllPostsMetadata(): Observable<Post[]> {
+    // Si ya tenemos los posts en caché, los devolvemos
+    if (this.postsCache) {
+      return of(this.postsCache);
+    }
+
+    // Cargar el índice de posts
+    return this.http.get<PostIndex[]>('/assets/posts-index.json').pipe(
+      switchMap(postsIndex => {
+        // Crear observables para cargar los metadatos de cada post
+        const postMetadataRequests = postsIndex.map(postInfo => 
+          this.getPostContent(postInfo.fileName).pipe(
+            map(content => {
+              try {
+                const parsed = this.frontMatter(content);
+                const metadata = parsed.attributes as PostMetadata;
+                
+                return {
+                  id: postInfo.id,
+                  fileName: postInfo.fileName,
+                  title: metadata.title || 'Sin título',
+                  date: metadata.date || new Date().toISOString(),
+                  summary: metadata.summary || '',
+                  tags: metadata.tags || [],
+                  author: metadata.author || 'Anónimo',
+                  category: metadata.category || '',
+                  subcategory: metadata.subcategory || '',
+                  coverImage: metadata.coverImage || ''
+                } as Post;
+              } catch (error) {
+                console.error(`Error parseando metadatos de ${postInfo.fileName}:`, error);
+                return {
+                  id: postInfo.id,
+                  fileName: postInfo.fileName,
+                  title: postInfo.fileName.replace('.md', '').replace(/-/g, ' '),
+                  date: new Date().toISOString(),
+                  summary: 'Error cargando metadatos',
+                  tags: [],
+                  author: 'Sistema',
+                  category: '',
+                  subcategory: '',
+                  coverImage: ''
+                } as Post;
+              }
+            }),
+            catchError(error => {
+              console.error(`Error cargando ${postInfo.fileName}:`, error);
+              return of({
+                id: postInfo.id,
+                fileName: postInfo.fileName,
+                title: 'Error',
+                date: new Date().toISOString(),
+                summary: 'No se pudo cargar el post',
+                tags: [],
+                author: 'Sistema',
+                category: '',
+                subcategory: '',
+                coverImage: ''
+              } as Post);
+            })
+          )
+        );
+
+        // Ejecutar todas las peticiones en paralelo
+        return forkJoin(postMetadataRequests);
+      }),
+      map(posts => {
+        // Guardar en caché
+        this.postsCache = posts;
+        return posts;
+      }),
+      catchError(error => {
+        console.error('Error cargando índice de posts:', error);
+        // Fallback a lista estática si falla
+        const fallbackPosts = [
+          {
+            id: 'post-de-prueba',
+            title: 'Del Síndrome del Impostor a Mentor: Mi Transformación en 2 Años',
+            date: '2025-06-16',
+            summary: 'Cómo pasé de sentir que no merecía estar en tech a ayudar a otros desarrolladores a encontrar su camino en la industria',
+            fileName: 'post-de-prueba.md'
+          },
+          {
+            id: 'introduccion',
+            title: 'Bienvenido al Mundo del Desarrollo Web Moderno',
+            date: '2025-06-15',
+            summary: 'Una introducción apasionante al universo del desarrollo web y las tecnologías que están transformando la manera en que construimos aplicaciones',
+            fileName: 'introduccion.md'
+          },
+          {
+            id: 'angular-tips',
+            title: '5 Tips Esenciales para Dominar Angular como un Pro',
+            date: '2025-06-14',
+            summary: 'Descubre los secretos que todo desarrollador Angular debería conocer para escribir código más limpio, eficiente y mantenible',
+            fileName: 'angular-tips.md'
+          },
+          {
+            id: 'mi-primer-hackathon',
+            title: 'Mi Primer Hackathon: 48 Horas que Cambiaron mi Carrera',
+            date: '2025-06-13',
+            summary: 'La historia de cómo un fin de semana de programación intensiva me enseñó más sobre desarrollo y colaboración que meses de estudio solitario',
+            fileName: 'mi-primer-hackathon.md'
+          },
+          {
+            id: 'css-grid-vs-flexbox',
+            title: 'CSS Grid vs Flexbox: La Batalla Definitiva (Spoiler: Ambos Ganan)',
+            date: '2025-06-12',
+            summary: 'Descubre cuándo usar cada herramienta de layout y por qué la combinación de ambas es el superpoder que todo frontend developer necesita',
+            fileName: 'css-grid-vs-flexbox.md'
+          }
+        ];
+        this.postsCache = fallbackPosts;
+        return of(fallbackPosts);
+      })
+    );
+  }
+
+  /**
+   * Invalida la caché de posts para forzar una recarga
+   */
+  clearCache(): void {
+    this.postsCache = null;
   }
 }

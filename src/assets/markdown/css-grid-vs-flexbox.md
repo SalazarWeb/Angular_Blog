@@ -1,7 +1,7 @@
 ---
 title: "CSS Grid vs Flexbox: La Batalla Definitiva (Spoiler: Ambos Ganan)"
 date: 2025-06-12
-category: "tecnología"
+category: "tecnologia"
 subcategory: "css y diseño"
 tags: 
   - css
@@ -9,12 +9,12 @@ tags:
   - flexbox
   - css grid
   - responsive design
-coverImage: "/assets/covers/css-battle.jpg"
+coverImage: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=400&fit=crop"
 summary: "Descubre cuándo usar cada herramienta de layout y por qué la combinación de ambas es el superpoder que todo frontend developer necesita"
 ---
 
 ## Introducción Emocional
-![Dos monitores mostrando layouts perfectos creados con Grid y Flexbox](/assets/images/css-layouts.jpg)
+![Dos monitores mostrando layouts perfectos creados con Grid y Flexbox](https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=800&h=400&fit=crop)
 *El momento eureka cuando finalmente entendí que no tenía que elegir un bando - Foto propia*
 
 Hoy quiero compartir esa experiencia que transformó mi relación con CSS para siempre. Durante años fui víctima de la "guerra" entre Grid y Flexbox, pensando que tenía que elegir uno y descartar el otro. Hasta que un proyecto me obligó a usar ambos y descubrí que son complementarios, no competidores.
