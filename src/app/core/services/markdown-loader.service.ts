@@ -1,14 +1,9 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map, catchError, of, forkJoin, switchMap } from 'rxjs';
+import { Observable, map, catchError, of } from 'rxjs';
 import { Post, PostMetadata } from '../interfaces/post.interface';
 
 declare const require: any;
-
-interface PostIndex {
-  id: string;
-  fileName: string;
-}
 
 @Injectable({
   providedIn: 'root'
@@ -94,117 +89,91 @@ export class MarkdownLoaderService {
     );
   }
 
+  /**
+   * Sistema manual de posts - define aquí manualmente todos los posts
+   */
   getAllPostsMetadata(): Observable<Post[]> {
     if (this.postsCache) {
       return of(this.postsCache);
     }
 
-    // Cargar el índice de posts
-    return this.http.get<PostIndex[]>('/assets/posts-index.json').pipe(
-      switchMap(postsIndex => {
-        // Crear observables para cargar los metadatos de cada post
-        const postMetadataRequests = postsIndex.map(postInfo => 
-          this.getPostContent(postInfo.fileName).pipe(
-            map(content => {
-              try {
-                const parsed = this.frontMatter(content);
-                const metadata = parsed.attributes as PostMetadata;
-                
-                return {
-                  id: postInfo.id,
-                  fileName: postInfo.fileName,
-                  title: metadata.title || 'Sin título',
-                  date: metadata.date || new Date().toISOString(),
-                  summary: metadata.summary || '',
-                  tags: metadata.tags || [],
-                  author: metadata.author || 'Anónimo',
-                  category: metadata.category || '',
-                  subcategory: metadata.subcategory || '',
-                  coverImage: metadata.coverImage || ''
-                } as Post;
-              } catch (error) {
-                console.error(`Error parseando metadatos de ${postInfo.fileName}:`, error);
-                return {
-                  id: postInfo.id,
-                  fileName: postInfo.fileName,
-                  title: postInfo.fileName.replace('.md', '').replace(/-/g, ' '),
-                  date: new Date().toISOString(),
-                  summary: 'Error cargando metadatos',
-                  tags: [],
-                  author: 'Sistema',
-                  category: '',
-                  subcategory: '',
-                  coverImage: ''
-                } as Post;
-              }
-            }),
-            catchError(error => {
-              console.error(`Error cargando ${postInfo.fileName}:`, error);
-              return of({
-                id: postInfo.id,
-                fileName: postInfo.fileName,
-                title: 'Error',
-                date: new Date().toISOString(),
-                summary: 'No se pudo cargar el post',
-                tags: [],
-                author: 'Sistema',
-                category: '',
-                subcategory: '',
-                coverImage: ''
-              } as Post);
-            })
-          )
-        );
+    // Lista manual de posts - agregar aquí nuevos posts manualmente
+    const manualPosts: Post[] = [
+      {
+        id: 'post-de-prueba',
+        title: 'Del Síndrome del Impostor a Mentor: Mi Transformación en 2 Años',
+        date: '2025-06-16',
+        summary: 'Cómo pasé de sentir que no merecía estar en tech a ayudar a otros desarrolladores a encontrar su camino en la industria.',
+        fileName: 'post-de-prueba.md',
+        tags: ['experiencias', 'carrera', 'mentoring'],
+        author: 'Tu Nombre',
+        category: 'experiencias',
+        subcategory: 'desarrollo-personal',
+      },
+      {
+        id: 'post-de-prueba2',
+        title: 'React vs Vue: La Batalla Épica que Todo Frontend Developer Debe Conocer',
+        date: '2025-06-15',
+        summary: 'Una comparación honesta y práctica entre React y Vue desde la perspectiva de alguien que ha trabajado profesionalmente con ambos frameworks.',
+        fileName: 'post-de-prueba2.md',
+        tags: ['react', 'vue', 'javascript', 'desarrollo frontend', 'comparación frameworks'],
+        author: 'Tu Nombre',
+        category: 'tecnologia',
+        subcategory: 'frameworks frontend',
+        coverImage: 'https://images.unsplash.com/photo-1516321497487-e288fb19713f?w=800&h=400&fit=crop'
+      },
+      {
+        id: 'introduccion',
+        title: 'Bienvenido al Mundo del Desarrollo Web Moderno',
+        date: '2025-06-15',
+        summary: 'Una introducción apasionante al universo del desarrollo web y las tecnologías que están transformando la manera en que construimos aplicaciones.',
+        fileName: 'introduccion.md',
+        tags: ['introducción', 'web', 'desarrollo'],
+        author: 'Tu Nombre',
+        category: 'tecnologia',
+        subcategory: 'fundamentos',
+        coverImage: ''
+      },
+      {
+        id: 'angular-tips',
+        title: '5 Tips Esenciales para Dominar Angular como un Pro',
+        date: '2025-06-14',
+        summary: 'Descubre los secretos que todo desarrollador Angular debería conocer para escribir código más limpio, eficiente y mantenible.',
+        fileName: 'angular-tips.md',
+        tags: ['angular', 'tips', 'desarrollo'],
+        author: 'Tu Nombre',
+        category: 'desarrollo-web',
+        subcategory: 'frameworks',
+        coverImage: ''
+      },
+      {
+        id: 'mi-primer-hackathon',
+        title: 'Mi Primer Hackathon: 48 Horas que Cambiaron mi Carrera',
+        date: '2025-06-13',
+        summary: 'La historia de cómo un fin de semana de programación intensiva me enseñó más sobre desarrollo y colaboración que meses de estudio solitario.',
+        fileName: 'mi-primer-hackathon.md',
+        tags: ['hackathon', 'experiencias', 'aprendizaje'],
+        author: 'Tu Nombre',
+        category: 'experiencias',
+        subcategory: 'eventos',
+        coverImage: ''
+      },
+      {
+        id: 'css-grid-vs-flexbox',
+        title: 'CSS Grid vs Flexbox: La Batalla Definitiva (Spoiler: Ambos Ganan)',
+        date: '2025-06-12',
+        summary: 'Descubre cuándo usar cada herramienta de layout y por qué la combinación de ambas es el superpoder que todo frontend developer necesita.',
+        fileName: 'css-grid-vs-flexbox.md',
+        tags: ['css', 'grid', 'flexbox', 'layout'],
+        author: 'Tu Nombre',
+        category: 'desarrollo-web',
+        subcategory: 'css',
+        coverImage: ''
+      }
+    ];
 
-        return forkJoin(postMetadataRequests);
-      }),
-      map(posts => {
-        this.postsCache = posts;
-        return posts;
-      }),
-      catchError(error => {
-        console.error('Error cargando índice de posts:', error);
-        const fallbackPosts = [
-          {
-            id: 'post-de-prueba',
-            title: 'Del Síndrome del Impostor a Mentor: Mi Transformación en 2 Años',
-            date: '2025-06-16',
-            summary: 'Cómo pasé de sentir que no merecía estar en tech a ayudar a otros desarrolladores a encontrar su camino en la industria.',
-            fileName: 'post-de-prueba.md'
-          },
-          {
-            id: 'introduccion',
-            title: 'Bienvenido al Mundo del Desarrollo Web Moderno',
-            date: '2025-06-15',
-            summary: 'Una introducción apasionante al universo del desarrollo web y las tecnologías que están transformando la manera en que construimos aplicaciones.',
-            fileName: 'introduccion.md'
-          },
-          {
-            id: 'angular-tips',
-            title: '5 Tips Esenciales para Dominar Angular como un Pro',
-            date: '2025-06-14',
-            summary: 'Descubre los secretos que todo desarrollador Angular debería conocer para escribir código más limpio, eficiente y mantenible.',
-            fileName: 'angular-tips.md'
-          },
-          {
-            id: 'mi-primer-hackathon',
-            title: 'Mi Primer Hackathon: 48 Horas que Cambiaron mi Carrera',
-            date: '2025-06-13',
-            summary: 'La historia de cómo un fin de semana de programación intensiva me enseñó más sobre desarrollo y colaboración que meses de estudio solitario.',
-            fileName: 'mi-primer-hackathon.md'
-          },
-          {
-            id: 'css-grid-vs-flexbox',
-            title: 'CSS Grid vs Flexbox: La Batalla Definitiva (Spoiler: Ambos Ganan)',
-            date: '2025-06-12',
-            summary: 'Descubre cuándo usar cada herramienta de layout y por qué la combinación de ambas es el superpoder que todo frontend developer necesita.',
-            fileName: 'css-grid-vs-flexbox.md'
-          }
-        ];
-        this.postsCache = fallbackPosts;
-        return of(fallbackPosts);
-      })
-    );
+    this.postsCache = manualPosts;
+    return of(manualPosts);
   }
 
   /**

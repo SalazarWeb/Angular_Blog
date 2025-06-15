@@ -270,8 +270,8 @@
     background-image: url('assets/images/hero-img.jpeg');
     background-size: cover;
     background-position: center;
-    height: 40vh;
-    min-height: 320px;
+    height: 20vh;
+    min-height: 220px;
     position: relative;
     background-blend-mode: multiply;
     background-color: rgba(58, 80, 107, 0.3);
@@ -355,7 +355,7 @@
   /* Contenido principal - 25% restante */
   .main-content {
     min-height: 25vh;
-    padding: 20px;
+    padding: 0;
     background-color: #FFFFFF;
     color: #000000;
   }
@@ -364,6 +364,7 @@
     max-width: 1200px;
     margin: 0 auto;
     height: 100%;
+    padding: 0; /* Eliminar cualquier padding del contenedor */
   }
 
   .categories-nav {
@@ -576,6 +577,7 @@
   .mobile-category-dropdown {
     display: none;
     position: relative;
+    z-index: 10;
   }
 
   .category-dropdown-button {
@@ -613,26 +615,29 @@
 
   .category-dropdown-menu {
     position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
+    top: calc(100% + 2px);
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 300px;
     background-color: white;
     border: 2px solid #E6F0F4;
-    border-top: none;
-    border-radius: 0 0 8px 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 1001;
     overflow: hidden;
     opacity: 0;
     visibility: hidden;
-    transform: translateY(-10px);
+    transform: translateX(-50%) translateY(-10px);
     transition: all 0.3s ease;
+    max-height: 200px;
+    overflow-y: auto;
   }
 
   .category-dropdown-menu.open {
     opacity: 1;
     visibility: visible;
-    transform: translateY(0);
+    transform: translateX(-50%) translateY(0);
   }
 
   .dropdown-category-item {
@@ -667,7 +672,7 @@
   @media screen and (max-width: 767px) {
     /* Mantener proporciones en móvil */
     .image-section {
-      height: 40vh;
+      height: 15vh;
       min-height: 250px;
     }
 
@@ -680,7 +685,8 @@
     }
 
     .blog-header {
-      min-height: 150px;
+      min-height: 180px;
+      padding-bottom: 10px;
     }
 
     /* Mantener proporciones en móvil pero permitir que el contenido crezca */
@@ -690,8 +696,8 @@
     }
 
     .blog-header {
-      height: 25vh;
-      min-height: 150px;
+      height: auto;
+      min-height: 180px;
     }
 
     .main-content {
@@ -725,7 +731,7 @@
     .mobile-category-dropdown {
       display: flex;
       justify-content: center;
-      padding: 15px 20px;
+      padding: 15px 20px 25px 20px;
     }
 
     .reading-times {
@@ -741,7 +747,7 @@
 
   @media screen and (max-width: 575px) {
     .image-section {
-      height: 40vh;
+      height: 20vh;
       min-height: 200px;
     }
 
@@ -759,8 +765,9 @@
     }
 
     .blog-header {
-      height: 25vh;
-      min-height: 120px;
+      height: auto;
+      min-height: 160px;
+      padding-bottom: 35px;
     }
 
     .main-content {
@@ -771,48 +778,8 @@
       font-size: 24px;
     }
 
-    .reading-time {
-      font-size: 10px;
-    }
-
-    .featured-title {
-      font-size: 20px;
-    }
-
-    .featured-description {
-      font-size: 14px;
-    }
-
-    .promo-title {
-      font-size: 20px;
-    }
-
-    .promo-subtitle {
-      font-size: 14px;
-    }
-
-    .footer-title {
-      font-size: 14px;
-    }
-
-    .footer-date {
-      font-size: 10px;
-    }
-
-    .footer-number {
-      font-size: 20px;
-    }
-
-    .email-input {
-      font-size: 12px;
-    }
-
-    .footer-date-bottom {
-      font-size: 10px;
-    }
-
-    .footer-copyright {
-      font-size: 12px;
+    .mobile-category-dropdown {
+      padding: 15px 20px 30px 20px;
     }
   }
 </style>
@@ -858,7 +825,7 @@
       </nav>
 
       <!-- Dropdown móvil simple -->
-      <div class="mobile-category-dropdown">
+      <div class="mobile-category-dropdown category-dropdown">
         <button class="category-dropdown-button" (click)="toggleCategoryDropdown()">
           <span>{{ getCategoryDisplayName(selectedCategory) }}</span>
           <span class="category-dropdown-arrow" [class.open]="isCategoryDropdownOpen">▼</span>

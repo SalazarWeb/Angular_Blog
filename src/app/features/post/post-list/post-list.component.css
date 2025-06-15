@@ -24,7 +24,7 @@
 .post-list-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 10px;
   background-color: var(--blanco);
 }
 
@@ -222,7 +222,7 @@
 /* Responsive */
 @media (max-width: 768px) {
   .post-list-container {
-    padding: 0 15px;
+    padding: 0 10px;
   }
   
   .section-title {

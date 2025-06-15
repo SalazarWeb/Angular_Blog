@@ -1,7 +1,7 @@
 .post-detail-container {
   max-width: 800px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 0;
   min-height: 80vh;
   background-color: var(--blanco);
 }
@@ -42,13 +42,13 @@
 /* Artículo del post */
 .post-article {
   background: var(--blanco);
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border-radius: 0; 
+  box-shadow: none;
   overflow: hidden;
 }
 
 .post-header {
-  padding: 2rem;
+  padding: 0; /* Eliminado completamente el padding */
   border-bottom: 1px solid var(--gris-perla-suave);
   background: var(--blanco);
 }
@@ -121,14 +121,14 @@
 
 /* Contenido del post */
 .post-content {
-  padding: 2rem;
+  padding: 0; /* Eliminado completamente el padding */
   background: var(--blanco);
   color: var(--negro);
 }
 
 /* Footer del post */
 .post-footer {
-  padding: 2rem;
+  padding: 0; /* Eliminado completamente el padding */
   border-top: 1px solid var(--gris-perla-suave);
   background: var(--blanco);
 }
@@ -160,13 +160,13 @@
 /* Responsive */
 @media (max-width: 768px) {
   .post-detail-container {
-    padding: 1rem;
+    padding: 10px; /* Mantener consistencia con 10px */
   }
   
   .post-header,
   .post-content,
   .post-footer {
-    padding: 1.5rem;
+    padding: 0; /* Sin padding en móvil también */
   }
   
   .post-title {
@@ -182,13 +182,13 @@
 
 @media (max-width: 480px) {
   .post-detail-container {
-    padding: 0.5rem;
+    padding: 10px; /* Mantener consistencia con 10px en lugar de eliminar */
   }
   
   .post-header,
   .post-content,
   .post-footer {
-    padding: 1rem;
+    padding: 0; /* Sin padding en pantallas pequeñas */
   }
   
   .post-title {

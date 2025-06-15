@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { FilterService } from './core/services/filter.service';
@@ -66,5 +66,15 @@ export class AppComponent implements OnInit, OnDestroy {
     this.router.navigate(['/']);
     this.selectedCategory = 'todos';
     this.filterService.setSelectedCategory('todos');
+  }
+
+  @HostListener('document:click', ['$event'])
+  onClickOutside(event: MouseEvent) {
+    const target = event.target as HTMLElement;
+    const clickedInside = target.closest('.category-dropdown');
+
+    if (!clickedInside) {
+      this.closeCategoryDropdown();
+    }
   }
 }
