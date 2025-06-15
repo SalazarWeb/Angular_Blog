@@ -36,12 +36,17 @@ html, body {
   line-height: 1.6;
   color: var(--negro);
   background-color: var(--blanco);
-  /* Permitir scroll normal */
+  /* Prevenir scroll horizontal */
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 app-root {
   display: block;
   min-height: 100vh;
+  /* Prevenir scroll horizontal en el root */
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 .container {
@@ -420,6 +425,4 @@ app-root {
   .blog-title {
     font-size: 24px;
   }
-
-  /* ...existing code... */
 }

@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 import { Post } from '../../../core/interfaces/post.interface';
 import { PostService } from '../../../core/services/post.service';
 import { FilterService } from '../../../core/services/filter.service';
@@ -9,10 +9,11 @@ import { FilterService } from '../../../core/services/filter.service';
   templateUrl: './post-list.component.html',
   styleUrls: ['./post-list.component.css']
 })
-export class PostListComponent implements OnInit {
+export class PostListComponent implements OnInit, OnDestroy {
   posts$: Observable<Post[]>;
   searchTerm: string = '';
   currentCategory: string = 'todos';
+  private subscription: Subscription = new Subscription();
 
   constructor(
     private postService: PostService,
@@ -22,12 +23,23 @@ export class PostListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // Inicializar con el estado actual del filtro
+    this.currentCategory = this.filterService.getSelectedCategory();
     this.loadPosts();
     
-    this.filterService.selectedCategory$.subscribe(category => {
+    // Mejorar la gestión de suscripciones
+    const filterSubscription = this.filterService.selectedCategory$.subscribe(category => {
       this.currentCategory = category;
       this.filterPostsByCategory(category);
     });
+    this.subscription.add(filterSubscription);
+    
+    // Aplicar filtro inicial basado en el estado actual
+    this.filterPostsByCategory(this.currentCategory);
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   loadPosts(): void {

@@ -1,17 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { FilterService } from './core/services/filter.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   title = 'AngularBlog';
   selectedCategory = 'todos';
   isCategoryDropdownOpen = false;
+  private subscription: Subscription = new Subscription();
 
   constructor(
     private titleService: Title,
@@ -22,10 +24,18 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.titleService.setTitle('Dazaji Blog');
     
-    // Suscribirse a cambios de categoría
-    this.filterService.selectedCategory$.subscribe(category => {
+    // Sincronizar estado inicial
+    this.selectedCategory = this.filterService.getSelectedCategory();
+    
+    // Suscribirse a cambios de categoría con gestión de suscripciones
+    const categorySubscription = this.filterService.selectedCategory$.subscribe(category => {
       this.selectedCategory = category;
     });
+    this.subscription.add(categorySubscription);
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   toggleCategoryDropdown() {
@@ -39,8 +49,7 @@ export class AppComponent implements OnInit {
   selectCategory(category: string) {
     this.selectedCategory = category;
     this.filterService.setSelectedCategory(category);
-    this.closeCategoryDropdown(); // Cerrar dropdown al seleccionar categoría
-    console.log('Categoría seleccionada:', category);
+    this.closeCategoryDropdown();
   }
 
   getCategoryDisplayName(category: string): string {
