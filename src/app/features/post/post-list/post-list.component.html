@@ -1,5 +1,5 @@
 <div class="post-list-container">
-  <div class="search-container">
+  <div class="search-container" style="margin-bottom:30px;display:flex;justify-content:center">
     <div class="search-input-wrapper">
       <input 
         type="text" 
@@ -22,18 +22,18 @@
   <!-- Loading inicial -->
   <div *ngIf="loading" class="loading-container">
     <div class="loading-spinner"></div>
-    <p>Cargando posts...</p>
+    <p style="margin:0">Cargando posts...</p>
   </div>
 
   <!-- Lista de posts -->
-  <div class="posts-list" *ngIf="!loading">
+  <div class="posts-list" *ngIf="!loading" style="display:flex;flex-direction:column">
     <article 
       *ngFor="let post of posts; trackBy: trackByPostId" 
       class="tutorial-post"
       [routerLink]="['/post', post.id]">
       
       <div class="post-header">
-        <div class="post-meta">
+        <div class="post-meta" style="display:flex;align-items:center;gap:15px;margin-bottom:8px">
           <time class="post-date-time">{{ post.date | date:'dd-MM-yyyy' }}</time>
         </div>
       </div>
@@ -50,7 +50,7 @@
         </span>
       </div>
       
-      <div class="post-divider"></div>
+      <div class="post-divider" style="width:100%;height:1px;background:#E6F0F4;margin-top:20px;opacity:.5"></div>
     </article>
   </div>
 
@@ -61,8 +61,8 @@
       [disabled]="loadingMore"
       class="load-more-button">
       <span *ngIf="!loadingMore">Cargar más posts</span>
-      <span *ngIf="loadingMore">
-        <div class="small-spinner"></div>
+      <span *ngIf="loadingMore" style="display:flex;align-items:center">
+        <div class="small-spinner" style="width:16px;height:16px;border:2px solid #E6F0F4;border-top:2px solid #fff;border-radius:50%;animation:spin 1s linear infinite;display:inline-block;margin-right:8px"></div>
         Cargando...
       </span>
     </button>
@@ -74,11 +74,11 @@
   <!-- Estados vacíos -->
   <div class="empty-state" *ngIf="!loading && posts.length === 0">
     <div *ngIf="!isSearchMode">
-      <h3>📝 Aún no hay posts publicados</h3>
+      <h3 style="font-size:24px;margin-bottom:15px">📝 Aún no hay posts publicados</h3>
       <p>¡Pronto habrá contenido interesante aquí!</p>
     </div>
     <div *ngIf="isSearchMode">
-      <h3>🔍 No se encontraron resultados</h3>
+      <h3 style="font-size:24px;margin-bottom:15px">🔍 No se encontraron resultados</h3>
       <p>No se encontraron posts para "{{ searchTerm }}"</p>
       <button (click)="clearSearch()" class="secondary-button">
         Ver todos los posts
