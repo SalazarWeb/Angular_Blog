@@ -18,29 +18,71 @@
       </button>
     </div>
   </div>
-  
-  <div class="posts-list">
+
+  <!-- Loading inicial -->
+  <div *ngIf="loading" class="loading-container">
+    <div class="loading-spinner"></div>
+    <p>Cargando posts...</p>
+  </div>
+
+  <!-- Lista de posts -->
+  <div class="posts-list" *ngIf="!loading">
     <article 
-      *ngFor="let post of posts$ | async" 
+      *ngFor="let post of posts; trackBy: trackByPostId" 
       class="tutorial-post"
       [routerLink]="['/post', post.id]">
       
-      <div class="post-meta">
-        <time class="post-date-time">{{ post.date | date:'dd-MM-yyyy' }}</time>
+      <div class="post-header">
+        <div class="post-meta">
+          <time class="post-date-time">{{ post.date | date:'dd-MM-yyyy' }}</time>
+        </div>
       </div>
       
       <h4 class="post-title">{{ post.title }}</h4>
       
       <p class="post-description">{{ post.summary }}</p>
       
+      <div class="post-tags" *ngIf="post.tags && post.tags.length > 0">
+        <span 
+          *ngFor="let tag of post.tags" 
+          class="tag">
+          #{{ tag }}
+        </span>
+      </div>
+      
       <div class="post-divider"></div>
     </article>
   </div>
 
-  <div class="empty-state" *ngIf="(posts$ | async)?.length === 0">
-    <h3>No se encontraron posts</h3>
-    <p>Intenta con otros términos de búsqueda o 
-      <button (click)="clearSearch()" class="link-button">ver todos los posts</button>
+  <!-- Botón Cargar más -->
+  <div class="load-more-container" *ngIf="!loading && !isSearchMode && hasMore">
+    <button 
+      (click)="loadMorePosts()" 
+      [disabled]="loadingMore"
+      class="load-more-button">
+      <span *ngIf="!loadingMore">Cargar más posts</span>
+      <span *ngIf="loadingMore">
+        <div class="small-spinner"></div>
+        Cargando...
+      </span>
+    </button>
+    <p class="posts-info">
+      Mostrando {{ posts.length }} de {{ totalPosts }} posts
     </p>
+  </div>
+
+  <!-- Estados vacíos -->
+  <div class="empty-state" *ngIf="!loading && posts.length === 0">
+    <div *ngIf="!isSearchMode">
+      <h3>📝 Aún no hay posts publicados</h3>
+      <p>¡Pronto habrá contenido interesante aquí!</p>
+    </div>
+    <div *ngIf="isSearchMode">
+      <h3>🔍 No se encontraron resultados</h3>
+      <p>No se encontraron posts para "{{ searchTerm }}"</p>
+      <button (click)="clearSearch()" class="secondary-button">
+        Ver todos los posts
+      </button>
+    </div>
   </div>
 </div>

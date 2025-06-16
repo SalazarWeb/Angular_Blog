@@ -59,12 +59,10 @@ export class PostDetailComponent implements OnInit {
   ngOnInit(): void {}
 
   private updateMetaTags(post: Post): void {
-    const pageTitle = `${post.title} - AngularBlog`;
-    this.titleService.setTitle(pageTitle);
+    this.titleService.setTitle('Dazaji Blog');
     
     // Actualizar meta tags
     this.meta.updateTag({ name: 'description', content: post.summary });
-    this.meta.updateTag({ name: 'author', content: post.author || 'Anónimo' });
     this.meta.updateTag({ name: 'keywords', content: post.tags?.join(', ') || '' });
     
     // Open Graph tags para redes sociales
@@ -104,7 +102,9 @@ export class PostDetailComponent implements OnInit {
     if (!post?.content) return 5;
     
     const wordsPerMinute = 200;
-    const wordCount = post.content.split(/\s+/).length;
+    // Remover HTML tags para contar solo el texto
+    const textContent = post.content.replace(/<[^>]*>/g, '');
+    const wordCount = textContent.split(/\s+/).filter(word => word.length > 0).length;
     const readingTime = Math.ceil(wordCount / wordsPerMinute);
     
     return readingTime > 0 ? readingTime : 1;

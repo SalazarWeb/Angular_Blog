@@ -23,11 +23,9 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.titleService.setTitle('Dazaji Blog');
-    
-    // Sincronizar estado inicial
+     
     this.selectedCategory = this.filterService.getSelectedCategory();
     
-    // Suscribirse a cambios de categoría con gestión de suscripciones
     const categorySubscription = this.filterService.selectedCategory$.subscribe(category => {
       this.selectedCategory = category;
     });

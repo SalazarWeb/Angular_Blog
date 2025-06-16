@@ -107,16 +107,7 @@
   border-radius: 16px;
   font-size: 0.875rem;
   font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
   border: 1px solid var(--gris-perla-suave);
-}
-
-.tag:hover {
-  background-color: var(--verde-agua-tranquilo);
-  color: var(--blanco);
-  transform: translateY(-1px);
-  border-color: var(--verde-agua-tranquilo);
 }
 
 /* Contenido del post */
