@@ -174,31 +174,7 @@ export class PostListComponent implements OnInit, OnDestroy {
       });
     }
   }
-  
-  /**
-   * Maneja clic en tags
-   */
-  onTagClick(tag: string): void {
-    this.isSearchMode = true;
-    this.loading = true;
-    this.searchTerm = `tag:${tag}`;
-    
-    this.postService.getPostsByTag(tag).subscribe({
-      next: (posts: Post[]) => {
-        this.posts = posts;
-        this.hasMore = false; // No hay paginación en filtros por tag
-        this.loading = false;
-      },
-      error: (error) => {
-        console.error('Error filtrando por tag:', error);
-        this.loading = false;
-      }
-    });
-  }
-
-  /**
-   * Limpia la búsqueda y vuelve al estado inicial
-   */
+ 
   clearSearch(): void {
     this.searchTerm = '';
     this.currentCategory = 'todos';
@@ -206,20 +182,6 @@ export class PostListComponent implements OnInit, OnDestroy {
     this.resetAndLoadPosts();
   }
 
-  /**
-   * Calcula el tiempo de lectura
-   */
-  getReadingTime(post: Post): number {
-    if (!post.content) return 1;
-    const wordsPerMinute = 200;
-    const textContent = post.content.replace(/<[^>]*>/g, '');
-    const words = textContent.split(/\s+/).filter(word => word.length > 0).length;
-    return Math.ceil(words / wordsPerMinute);
-  }
-
-  /**
-   * Función de tracking para ngFor para mejorar rendimiento
-   */
   trackByPostId(index: number, post: Post): string {
     return post.id;
   }

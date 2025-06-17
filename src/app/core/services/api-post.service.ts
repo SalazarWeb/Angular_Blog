@@ -16,13 +16,10 @@ export interface ApiResponse<T> {
   providedIn: 'root'
 })
 export class ApiPostService {
-  private readonly baseUrl = 'http://localhost:3000/api';
+  private readonly baseUrl = 'https://backend-blog-pmt2.onrender.com/api';
 
   constructor(private http: HttpClient) { }
 
-  /**
-   * Verifica si la API del backend está disponible
-   */
   checkApiHealth(): Observable<boolean> {
     return this.http.get<{status: string}>(`${this.baseUrl}/health`).pipe(
       map(response => response.status === 'OK'),
@@ -58,9 +55,6 @@ export class ApiPostService {
     );
   }
 
-  /**
-   * Obtiene el contenido markdown original de un post
-   */
   getPostRaw(id: string): Observable<Post | null> {
     return this.http.get<Post>(`${this.baseUrl}/posts/${id}/raw`).pipe(
       catchError(error => {
@@ -100,22 +94,6 @@ export class ApiPostService {
     );
   }
 
-  /**
-   * Obtiene posts por tag
-   */
-  getPostsByTag(tag: string): Observable<Post[]> {
-    return this.http.get<ApiResponse<Post>>(`${this.baseUrl}/posts/tag/${encodeURIComponent(tag)}`).pipe(
-      map(response => response.posts),
-      catchError(error => {
-        console.error(`Error obteniendo posts por tag "${tag}":`, error);
-        return of([]);
-      })
-    );
-  }
-
-  /**
-   * Limpia la caché del backend (útil para desarrollo)
-   */
   clearBackendCache(): Observable<{message: string}> {
     return this.http.post<{message: string}>(`${this.baseUrl}/cache/clear`, {}).pipe(
       catchError(error => {
@@ -125,9 +103,6 @@ export class ApiPostService {
     );
   }
 
-  /**
-   * Obtiene posts con paginación
-   */
   getPostsPaginated(page: number = 1, limit: number = 6): Observable<ApiResponse<Post>> {
     return this.http.get<ApiResponse<Post>>(`${this.baseUrl}/posts?page=${page}&limit=${limit}`).pipe(
       catchError(error => {
