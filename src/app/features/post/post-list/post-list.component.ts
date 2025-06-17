@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Post } from '../../../core/interfaces/post.interface';
 import { PostService } from '../../../core/services/post.service';
 import { FilterService } from '../../../core/services/filter.service';
@@ -10,19 +10,19 @@ import { ApiResponse } from '../../../core/services/api-post.service';
   templateUrl: './post-list.component.html',
   styleUrls: ['./post-list.component.css']
 })
-export class PostListComponent implements OnInit, OnDestroy {
-  // Estados para la paginación
+export class PostListComponent implements OnInit, OnDestroy { 
   posts: Post[] = [];
   loading = false;
   loadingMore = false;
   hasMore = false;
   currentPage = 1;
   totalPosts = 0;
-  
-  // Estados para filtros y búsqueda
   searchTerm: string = '';
   currentCategory: string = 'todos';
-  isSearchMode = false;
+  isSearchMode = false; 
+  searchCurrentPage = 1;
+  searchHasMore = false;
+  searchTotalPosts = 0;
   
   private subscription: Subscription = new Subscription();
 
@@ -63,7 +63,6 @@ export class PostListComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.currentPage = 1;
     
-    // Usar paginación para cargar los primeros 6 posts
     this.postService.getPostsPaginated(1, 6).subscribe({
       next: (response: ApiResponse<Post>) => {
         this.posts = response.posts || [];
@@ -78,11 +77,18 @@ export class PostListComponent implements OnInit, OnDestroy {
     });
   }
 
-  /**
-   * Carga más posts (4 adicionales)
-   */
   loadMorePosts(): void {
-    if (this.loadingMore || !this.hasMore || this.isSearchMode) return;
+    if (this.loadingMore) return;
+    
+    if (this.isSearchMode) {
+      this.loadMoreSearchResults();
+    } else {
+      this.loadMoreNormalPosts();
+    }
+  }
+
+  private loadMoreNormalPosts(): void {
+    if (!this.hasMore) return;
     
     this.loadingMore = true;
     
@@ -99,6 +105,8 @@ export class PostListComponent implements OnInit, OnDestroy {
           this.posts = [...this.posts, ...response.posts];
           this.hasMore = response.hasMore || false;
           this.totalPosts = response.total || this.totalPosts;
+          
+          console.log(`Cargando más posts - Página ${nextPage}, Posts actuales: ${this.posts.length}`);
         } else {
           this.hasMore = false;
         }
@@ -112,9 +120,40 @@ export class PostListComponent implements OnInit, OnDestroy {
     });
   }
 
-  /**
-   * Resetea la paginación y carga posts desde el inicio
-   */
+  private loadMoreSearchResults(): void {
+    if (!this.searchHasMore || !this.searchTerm.trim()) return;
+    
+    this.loadingMore = true;
+    
+    // Calcular la siguiente página para búsqueda
+    let nextPage: number;
+    if (this.posts.length === 6) {
+      nextPage = 2;
+    } else {
+      nextPage = Math.floor((this.posts.length - 6) / 4) + 3;
+    }
+    
+    this.postService.searchPosts(this.searchTerm, nextPage, 4).subscribe({
+      next: (response: ApiResponse<Post>) => {
+        if (response.posts && response.posts.length > 0) {
+          this.posts = [...this.posts, ...response.posts];
+          this.searchHasMore = response.hasMore || false;
+          this.searchTotalPosts = response.total || this.searchTotalPosts;
+          
+          console.log(`🔍 Cargando más resultados de búsqueda - Página ${nextPage}, Resultados actuales: ${this.posts.length}`);
+        } else {
+          this.searchHasMore = false;
+        }
+        
+        this.loadingMore = false;
+      },
+      error: (error) => {
+        console.error('Error cargando más resultados de búsqueda:', error);
+        this.loadingMore = false;
+      }
+    });
+  }
+ 
   resetAndLoadPosts(): void {
     this.posts = [];
     this.currentPage = 1;
@@ -122,20 +161,21 @@ export class PostListComponent implements OnInit, OnDestroy {
     this.isSearchMode = false;
     this.loadInitialPosts();
   }
-
-  /**
-   * Maneja la búsqueda de posts
-   */
+ 
   onSearch(): void {
     if (this.searchTerm.trim()) {
       this.isSearchMode = true;
       this.loading = true;
+      this.searchCurrentPage = 1;
       
-      this.postService.searchPosts(this.searchTerm).subscribe({
-        next: (posts: Post[]) => {
-          this.posts = posts;
-          this.hasMore = false; // No hay paginación en búsqueda
+      this.postService.searchPosts(this.searchTerm, 1, 6).subscribe({
+        next: (response: ApiResponse<Post>) => {
+          this.posts = response.posts || [];
+          this.searchHasMore = response.hasMore || false;
+          this.searchTotalPosts = response.total || 0;
           this.loading = false;
+          
+          console.log(`🔍 Búsqueda "${this.searchTerm}" - Encontrados ${this.posts.length} de ${this.searchTotalPosts} posts`);
         },
         error: (error) => {
           console.error('Error en búsqueda:', error);
@@ -146,10 +186,7 @@ export class PostListComponent implements OnInit, OnDestroy {
       this.resetAndLoadPosts();
     }
   }
-
-  /**
-   * Filtra posts por categoría
-   */
+ 
   filterPostsByCategory(category: string): void {
     if (this.searchTerm.trim()) return;
     
@@ -159,8 +196,7 @@ export class PostListComponent implements OnInit, OnDestroy {
     
     if (category === 'todos') {
       this.resetAndLoadPosts();
-    } else {
-      // Para filtros por categoría, cargar todos los posts de esa categoría
+    } else { 
       this.postService.getPostsByCategory(category).subscribe({
         next: (posts: Post[]) => {
           this.posts = posts;

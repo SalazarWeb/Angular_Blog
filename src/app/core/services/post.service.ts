@@ -38,8 +38,8 @@ export class PostService {
     );
   }
  
-  searchPosts(searchTerm: string): Observable<Post[]> {
-    return this.apiPostService.searchPosts(searchTerm);
+  searchPosts(searchTerm: string, page: number = 1, limit: number = 6): Observable<ApiResponse<Post>> {
+    return this.apiPostService.searchPosts(searchTerm, page, limit);
   }
 
   getPostsByCategory(category: string): Observable<Post[]> {

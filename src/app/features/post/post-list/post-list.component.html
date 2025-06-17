@@ -55,19 +55,19 @@
   </div>
 
   <!-- Botón Cargar más -->
-  <div class="load-more-container" *ngIf="!loading && !isSearchMode && hasMore">
+  <div class="load-more-container" *ngIf="!loading && ((isSearchMode && searchHasMore) || (!isSearchMode && hasMore))">
     <button 
       (click)="loadMorePosts()" 
       [disabled]="loadingMore"
       class="load-more-button">
-      <span *ngIf="!loadingMore">Cargar más posts</span>
+      <span *ngIf="!loadingMore">Cargar más {{ isSearchMode ? 'resultados' : 'posts' }}</span>
       <span *ngIf="loadingMore" style="display:flex;align-items:center">
         <div class="small-spinner" style="width:16px;height:16px;border:2px solid #E6F0F4;border-top:2px solid #fff;border-radius:50%;animation:spin 1s linear infinite;display:inline-block;margin-right:8px"></div>
         Cargando...
       </span>
     </button>
     <p class="posts-info">
-      Mostrando {{ posts.length }} de {{ totalPosts }} posts
+      Mostrando {{ posts.length }} de {{ isSearchMode ? searchTotalPosts : totalPosts }} {{ isSearchMode ? 'resultados' : 'posts' }}
     </p>
   </div>
 

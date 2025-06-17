@@ -65,25 +65,35 @@ export class ApiPostService {
   }
 
   /**
-   * Busca posts por término
+   * Busca posts por término con paginación
    */
-  searchPosts(query: string): Observable<Post[]> {
+  searchPosts(query: string, page: number = 1, limit: number = 6): Observable<ApiResponse<Post>> {
     if (!query.trim()) {
-      return of([]);
+      return of({
+        posts: [],
+        total: 0,
+        page: page,
+        limit: limit,
+        hasMore: false,
+        totalPages: 0
+      });
     }
 
-    return this.http.get<ApiResponse<Post>>(`${this.baseUrl}/posts/search/${encodeURIComponent(query)}`).pipe(
-      map(response => response.posts),
+    return this.http.get<ApiResponse<Post>>(`${this.baseUrl}/posts/search/${encodeURIComponent(query)}?page=${page}&limit=${limit}`).pipe(
       catchError(error => {
         console.error(`Error buscando posts con query "${query}":`, error);
-        return of([]);
+        return of({
+          posts: [],
+          total: 0,
+          page: page,
+          limit: limit,
+          hasMore: false,
+          totalPages: 0
+        });
       })
     );
   }
-
-  /**
-   * Obtiene posts por categoría
-   */
+ 
   getPostsByCategory(category: string): Observable<Post[]> {
     return this.http.get<ApiResponse<Post>>(`${this.baseUrl}/posts/category/${encodeURIComponent(category)}`).pipe(
       map(response => response.posts),
